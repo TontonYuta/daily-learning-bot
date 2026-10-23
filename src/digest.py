@@ -55,15 +55,19 @@ CẤU TRÚC ĐỊNH DẠNG (Bắt buộc dùng thẻ HTML của Telegram: <b>, <
 Văn phong: Tiếng Việt chuẩn mực, mạch lạc, tôn trọng người đọc, không dùng từ ngữ dịch máy gượng gạo.
 """
 
-        try:
-            response = client.models.generate_content(
-                model="gemini-2.5-flash",
-                contents=prompt,
-            )
-            return response.text
-        except Exception as e:
-            logger.error(f"Lỗi khi gọi Gemini API: {e}")
-            return self._mock_digest()
+        models_to_try = ["gemini-3.5-flash", "gemini-3.8-flash", "gemini-3.1-flash-lite"]
+        for model_name in models_to_try:
+            try:
+                response = client.models.generate_content(
+                    model=model_name,
+                    contents=prompt,
+                )
+                return response.text
+            except Exception as e:
+                logger.warning(f"Thử model {model_name} không thành công: {e}")
+
+        logger.error("Tất cả các model Gemini đều gặp lỗi, chuyển sang bản tin dự phòng.")
+        return self._mock_digest()
 
     def _mock_digest(self) -> str:
         """Bản tin mẫu chất lượng cao khi chưa có API key để test toàn bộ pipeline."""
