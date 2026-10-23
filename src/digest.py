@@ -21,38 +21,31 @@ class DigestGenerator:
         client = genai.Client(api_key=self.api_key)
 
         prompt = f"""
-Bạn là một kỹ sư trưởng kiêm nhà sư phạm tâm huyết. Nhiệm vụ của bạn là đọc các tin tức kỹ thuật bằng tiếng Anh và chắt lọc thành 1 BẢN TIN BUỔI SÁNG DUY NHẤT bằng TIẾNG VIỆT tự nhiên, sâu sắc, hoàn toàn không có sáo rỗng.
+Bạn là một kỹ sư phần mềm thực dụng. Hãy đọc dữ liệu thô dưới đây và viết một bản tin vắn tắt, ĐI THẲNG VÀO NỘI DUNG CHÍNH, viết tự nhiên như người thật nhắn cho đồng nghiệp, TUYỆT ĐỐI KHÔNG CÓ GIỌNG VĂN AI SLOP.
 
-DỮ LIỆU ĐẦU VÀO ĐƯỢC CÀO BẰNG PLAYWRIGHT:
+DỮ LIỆU ĐẦU VÀO:
 {raw_crawled_data}
 
-QUY TẮC BIÊN TẬP VÀ LỌC NHIỄU (BẮT BUỘC TUÂN THỦ):
-1. LOẠI BỎ TRIỆT ĐỂ:
-   - Tin giật gân, phát biểu drama của CEO/nhân vật nổi tiếng.
-   - Tin gọi vốn, PR doanh nghiệp, tin đồn mơ hồ về AGI.
-   - Các bài báo lý thuyết suông không có mã nguồn hoặc không áp dụng được.
-2. CHỈ GIỮ LẠI:
-   - Công cụ/mô hình mã nguồn mở thực chiến (dùng được ngay).
-   - Kỹ thuật lập trình/tối ưu hóa AI thực tế.
-   - Kiến trúc giải quyết được bài toán cụ thể (nhanh hơn, rẻ hơn, chính xác hơn).
+QUY TẮC BẮT BUỘC ĐỂ DIỆT VĂN PHONG AI:
+1. DANH SÁCH TỪ BỊ CẤM (TUYỆT ĐỐI KHÔNG DÙNG):
+   - "đột phá", "cách mạng", "bước ngoặt", "then chốt", "quan trọng", "hãy tưởng tượng", "hãy cùng khám phá", "kỷ nguyên số", "vũ khí bí mật", "không thể phủ nhận".
+2. CÁCH VIẾT:
+   - Không mở bài chào hỏi dài dòng, không kết bài tổng kết đạo lý.
+   - Viết câu ngắn, chắc, trần thuật sự thật kỹ thuật (Ground Truth).
+   - Giải thích bản chất thay vì dùng tính từ khen ngợi.
 
-CẤU TRÚC ĐỊNH DẠNG (Bắt buộc dùng thẻ HTML của Telegram: <b>, <i>, <code>, <a>, <tg-spoiler>):
+CẤU TRÚC BẢN TIN (Dùng HTML Telegram: <b>, <code>, <a>, <tg-spoiler>):
 
-🌅 <b>BẢN TIN KHỞI ĐỘNG TRÍ TUỆ — 07:00 AM</b>
+⚡ <b>TIÊU ĐIỂM AI HÔM NAY</b>
+• <b>Công nghệ:</b> [Tên mô hình/paper + Link nếu có]
+• <b>Bản chất:</b> [Giải quyết đúng vấn đề gì, cơ chế ngắn gọn trong 1-2 câu]
+• <b>Áp dụng:</b> [Lệnh terminal, config cụ thể hoặc cách dùng thực tế trong 1 dòng]
 
-🤖 <b>1. BẢN CHẤT CÔNG NGHỆ AI HÔM NAY</b>
-• <b>Đột phá thực tế:</b> [Tên mô hình/kỹ thuật] - Tóm tắt trong 2 câu ngắn gọn, nêu rõ bản chất.
-• <b>Tại sao bạn nên quan tâm?</b> Nêu lợi ích cụ thể (tiết kiệm bộ nhớ, tăng tốc độ, giảm chi phí API...).
-• <b>Bài học áp dụng ngay:</b> 1 hành động thực tế người đọc có thể thử ngay hôm nay (lệnh cài đặt, mẹo prompt, hoặc link repo GitHub/paper).
-
-📐 <b>2. TOÁN HỌC & BẢN CHẤT TRỰC GIÁC (Toán THPT kết nối AI)</b>
-• <b>Khái niệm:</b> [Chọn 1 khái niệm trong chương trình lớp 10, 11 hoặc 12: Đạo hàm, Vectơ, Ma trận, Xác suất có điều kiện, Cực trị hàm số...]
-• <b>Bản chất bằng mắt:</b> Giải thích trực giác đời sống, TUYỆT ĐỐI KHÔNG đọc vẹt công thức.
-• <b>Thuật toán AI dùng nó thế nào?</b> Giải thích cách thuật toán máy học (như ChatGPT, bộ gợi ý Tiktok) dùng chính khái niệm toán này để hoạt động.
-• <b>Câu hỏi phản xạ 30 giây:</b> 1 câu hỏi nhỏ kích thích tư duy.
-👉 <tg-spoiler>Đáp án: [Giải thích ngắn]</tg-spoiler>
-
-Văn phong: Tiếng Việt chuẩn mực, mạch lạc, tôn trọng người đọc, không dùng từ ngữ dịch máy gượng gạo.
+📐 <b>TOÁN THPT & THỰC TẾ AI</b>
+• <b>Khái niệm:</b> [Tên khái niệm lớp 10, 11 hoặc 12]
+• <b>Bản chất cốt lõi:</b> [Ý nghĩa hình học/thực tế trần trụi, 1-2 câu]
+• <b>Ứng dụng trong AI:</b> [Thuật toán AI dùng nó vào đúng việc gì, không nói chung chung]
+• <b>Ví dụ nhanh:</b> [1 ví dụ số hoặc tình huống cụ thể]
 """
 
         models_to_try = ["gemini-3.5-flash", "gemini-3.8-flash", "gemini-3.1-flash-lite"]

@@ -33,21 +33,22 @@ async def handle_read_command(chat_id: int):
     await sender.send_message(digest_html)
 
 async def handle_math_command(chat_id: int):
-    """Khi user gõ /math: Sinh riêng 1 bài toán THPT kết nối với thực tế/AI."""
+    """Khi user gõ /math: Sinh riêng 1 bài toán THPT kết nối với thực tế/AI, ngắn gọn và thực dụng."""
     sender = TelegramSender(bot_token=TELEGRAM_BOT_TOKEN, chat_id=str(chat_id))
-    await sender.send_message("📐 <i>Đang biên soạn 1 bài học Toán học trực giác cho bạn...</i>")
+    await sender.send_message("📐 <i>Đang chọn 1 chủ đề toán thực dụng cho bạn...</i>")
 
     client = genai.Client(api_key=GEMINI_API_KEY)
     prompt = """
-    Bạn là một nhà sư phạm toán học xuất sắc. Hãy chọn ngẫu nhiên 1 chủ đề toán THPT (Lớp 10, 11 hoặc 12: Đạo hàm, Tích phân, Vectơ, Xác suất Bayes, Ma trận, Nhị thức Newton...).
-    Biên soạn một bài học ngắn bằng tiếng Việt chuẩn mực theo định dạng HTML của Telegram (dùng <b>, <i>, <code>, <tg-spoiler>):
+    Bạn là một kỹ sư phần mềm thực chiến. Chọn ngẫu nhiên 1 chủ đề toán THPT (Đạo hàm, Ma trận, Vectơ, Xác suất có điều kiện, Cực trị...).
+    Giải thích TRỰC DIỆN, BỎ TOÀN BỘ VĂN VẺ HOA MỸ VÀ TỪ NGỮ AI SLOP (cấm dùng: 'đột phá', 'hãy tưởng tượng', 'then chốt', 'bước ngoặt').
 
-    📐 <b>BÀI HỌC TOÁN HỌC TRỰC GIÁC (TOÁN THPT & AI)</b>
-    • <b>Khái niệm:</b> [Tên khái niệm]
-    • <b>Bản chất bằng mắt (Intuition):</b> Giải thích bằng hình tượng đời sống thực tế, không đọc vẹt công thức.
-    • <b>Ứng dụng trong AI / Công nghệ:</b> Thuật toán máy học hiện đại dùng khái niệm này ở đâu và như thế nào?
-    • <b>Thử thách phản xạ tư duy:</b> 1 câu hỏi nhỏ kích thích người đọc.
-    👉 <tg-spoiler>Đáp án: [Giải thích]</tg-spoiler>
+    ĐỊNH DẠNG (HTML Telegram):
+    📐 <b>TOÁN THPT & ỨNG DỤNG AI THỰC TẾ</b>
+    • <b>Khái niệm:</b> [Tên khái niệm lớp 10, 11 hoặc 12]
+    • <b>Ý nghĩa cốt lõi:</b> [1-2 câu trần thuật trần trụi về mặt hình học hoặc số học]
+    • <b>AI dùng làm gì:</b> [Chỉ rõ thuật toán AI nào dùng nó và giải quyết khâu nào, không nói chung chung]
+    • <b>Ví dụ / Câu hỏi phản xạ:</b> [1 ví dụ số hoặc câu hỏi thực tế ngắn]
+    👉 <tg-spoiler>Đáp án: [Giải thích ngắn trong 1 dòng]</tg-spoiler>
     """
     try:
         models_to_try = ["gemini-3.5-flash", "gemini-3.8-flash", "gemini-3.1-flash-lite"]
@@ -69,18 +70,19 @@ async def handle_math_command(chat_id: int):
         await sender.send_message("❌ Có lỗi xảy ra khi tạo bài học toán.")
 
 async def handle_ask_question(chat_id: int, question: str):
-    """Khi user hỏi bất kỳ câu hỏi nào: Giải thích theo phong cách trực giác, súc tích."""
+    """Khi user hỏi bất kỳ câu hỏi nào: Trả lời như một senior engineer, đi thẳng vào đáp án."""
     sender = TelegramSender(bot_token=TELEGRAM_BOT_TOKEN, chat_id=str(chat_id))
     client = genai.Client(api_key=GEMINI_API_KEY)
 
     prompt = f"""
-    Bạn là một kỹ sư AI kiêm chuyên gia sư phạm. Người dùng hỏi bạn:
-    "{question}"
+    Người dùng hỏi: "{question}"
 
-    YÊU CẦU TRẢ LỜI:
-    - Bằng tiếng Việt tự nhiên, súc tích, đi thẳng vào bản chất vấn đề.
-    - Dùng ví dụ trực quan hoặc hình tượng hóa để người đọc dễ hiểu nhất.
-    - Định dạng dùng HTML Telegram (<b>, <i>, <code>).
+    QUY TẮC TRẢ LỜI CỦA SENIOR ENGINEER:
+    - Đi thẳng vào trọng tâm câu trả lời ngay dòng đầu tiên.
+    - KHÔNG chào hỏi khách sáo, KHÔNG khen ngợi câu hỏi ("Đây là một câu hỏi rất hay..."), KHÔNG kết luận đạo lý.
+    - CẤM các từ sáo rỗng: "đột phá", "then chốt", "hãy tưởng tượng", "không thể phủ nhận", "kỷ nguyên AI".
+    - Giải thích bản chất kỹ thuật, kèm ví dụ thực tế hoặc lệnh code nếu có.
+    - Định dạng dùng HTML Telegram (<b>, <code>, <i>). Ngắn gọn, không viết tràn lan.
     """
     try:
         models_to_try = ["gemini-3.5-flash", "gemini-3.8-flash", "gemini-3.1-flash-lite"]
