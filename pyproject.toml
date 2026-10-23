@@ -1,0 +1,28 @@
+[project]
+name = "daily-learning-bot"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "TontonYuta", email = "huyhoang6altt@gmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "google-genai>=2.33.0",
+    "httpx>=0.28.1",
+    "playwright>=1.64.1",
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "python-dotenv>=1.2.4",
+]
+
+[project.scripts]
+daily-learning-bot = "src.main:main"
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+asyncio_mode = "auto"
