@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from src.crawler import PlaywrightAICrawler
 from src.digest import DigestGenerator
 from src.telegram_sender import TelegramSender
+from src.history import HistoryManager
 from google import genai
 
 load_dotenv()
@@ -24,13 +25,18 @@ async def handle_read_command(chat_id: int):
     await sender.send_message("⏳ <i>Đang cào dữ liệu mới nhất từ Hugging Face và biên soạn bài đọc cho bạn... Vui lòng đợi trong giây lát!</i>")
 
     crawler = PlaywrightAICrawler(headless=True)
-    papers = await crawler.crawl_huggingface_papers(max_items=5)
-    formatted_data = crawler.format_for_llm(papers)
+    papers = await crawler.crawl_huggingface_papers(max_items=8)
+
+    history_manager = HistoryManager()
+    selected_papers = history_manager.filter_unseen(papers, max_items=5)
+    formatted_data = crawler.format_for_llm(selected_papers)
 
     generator = DigestGenerator(api_key=GEMINI_API_KEY)
     digest_html = generator.generate(formatted_data)
 
-    await sender.send_message(digest_html)
+    success = await sender.send_message(digest_html)
+    if success:
+        history_manager.save_history(selected_papers)
 
 async def handle_math_command(chat_id: int):
     """Khi user gõ /math: Sinh riêng 1 bài toán THPT kết nối với thực tế/AI, ngắn gọn và thực dụng."""
@@ -140,13 +146,13 @@ async def start_polling():
                                 "• <b>Hoặc gõ trực tiếp bất kỳ câu hỏi nào</b> (ví dụ: <i>Giải thích Attention là gì</i>) để bot giải thích ngay lập tức!"
                             )
                             sender = TelegramSender(bot_token=TELEGRAM_BOT_TOKEN, chat_id=str(chat_id))
-                            await sender.send_message(welcome_msg)
+                            asyncio.create_task(sender.send_message(welcome_msg))
                         elif text in ["/read", "/baidoc"]:
-                            await handle_read_command(chat_id)
+                            asyncio.create_task(handle_read_command(chat_id))
                         elif text in ["/math", "/toan"]:
-                            await handle_math_command(chat_id)
+                            asyncio.create_task(handle_math_command(chat_id))
                         else:
-                            await handle_ask_question(chat_id, text)
+                            asyncio.create_task(handle_ask_question(chat_id, text))
 
             except httpx.ReadTimeout:
                 continue

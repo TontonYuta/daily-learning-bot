@@ -2,8 +2,10 @@ name: Daily Automated Learning Bot
 
 on:
   schedule:
-    # 00:00 UTC = 07:00 AM Vietnam Time (UTC+7)
-    - cron: '0 0 * * *'
+    # 23:35 UTC = 06:35 AM Vietnam Time (UTC+7)
+    # LƯU Ý: Tránh mốc 00:00 UTC vì toàn cầu cùng chạy cron khiến GitHub Actions runner nghẽn hàng đợi trễ 1-3 tiếng!
+    # Lùi lại 23:35 UTC giúp chạy vào khung giờ vắng, tin nhắn sẽ đến đều đặn quanh 06:40 - 07:00 AM VN.
+    - cron: '35 23 * * *'
   # Cho phép bấm nút "Run workflow" trên giao diện web để chạy thử nghiệm bất cứ lúc nào
   workflow_dispatch:
 
@@ -11,6 +13,8 @@ jobs:
   run-daily-digest:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    permissions:
+      contents: write
 
     steps:
       - name: 📥 Checkout repository
@@ -39,3 +43,14 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
           python -m src.main
+
+      - name: 💾 Lưu lịch sử bài viết đã gửi (Deduplication Persistence)
+        if: success()
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/history.json || true
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(history): update sent papers [skip ci]"
+            git push
+          fi

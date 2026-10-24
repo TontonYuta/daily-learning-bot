@@ -1,7 +1,7 @@
 import asyncio
 import logging
-from typing import List, Dict, Any
-from playwright.async_api import async_playwright, Browser, Page
+from typing import List, Dict, Any, Optional
+from playwright.async_api import async_playwright, Browser, Page, BrowserContext
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
@@ -21,58 +21,73 @@ class PlaywrightAICrawler:
         papers: List[Dict[str, Any]] = []
         logger.info("🚀 Launching Playwright browser (Chromium)...")
 
-        async with async_playwright() as p:
-            browser: Browser = await p.chromium.launch(
-                headless=self.headless,
-                args=["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]
-            )
-            context = await browser.new_context(
-                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-            )
-            page: Page = await context.new_page()
+        try:
+            async with async_playwright() as p:
+                browser: Optional[Browser] = None
+                context: Optional[BrowserContext] = None
+                try:
+                    browser = await p.chromium.launch(
+                        headless=self.headless,
+                        args=["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]
+                    )
+                    context = await browser.new_context(
+                        user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+                    )
+                    page: Page = await context.new_page()
 
-            try:
-                url = "https://huggingface.co/papers"
-                logger.info(f"🌐 Navigating to {url}...")
-                await page.goto(url, wait_until="domcontentloaded", timeout=self.timeout_ms)
+                    url = "https://huggingface.co/papers"
+                    logger.info(f"🌐 Navigating to {url}...")
+                    await page.goto(url, wait_until="domcontentloaded", timeout=self.timeout_ms)
 
-                # Wait for paper articles to load
-                await page.wait_for_selector("article, div.cursor-pointer", timeout=10000)
+                    # Wait for paper articles to load
+                    await page.wait_for_selector("article, div.cursor-pointer", timeout=10000)
 
-                # Query paper elements
-                articles = await page.query_selector_all("article")
-                logger.info(f"📄 Found {len(articles)} article nodes on page.")
+                    # Query paper elements
+                    articles = await page.query_selector_all("article")
+                    logger.info(f"📄 Found {len(articles)} article nodes on page.")
 
-                for idx, article in enumerate(articles[:max_items]):
-                    title_elem = await article.query_selector("h3, a.line-clamp-2, a[href^='/papers/']")
-                    link_elem = await article.query_selector("a[href^='/papers/']")
-                    desc_elem = await article.query_selector("p, div.line-clamp-3")
-                    upvote_elem = await article.query_selector("button, div.leading-none")
+                    for idx, article in enumerate(articles[:max_items]):
+                        title_elem = await article.query_selector("h3") or await article.query_selector("a.line-clamp-2")
+                        link_elem = await article.query_selector("h3 a") or await article.query_selector("a[href^='/papers/']")
+                        desc_elem = await article.query_selector("p, div.line-clamp-3")
+                        upvote_elem = await article.query_selector("button, div.leading-none, a[href*='login']")
 
-                    title = (await title_elem.inner_text()).strip() if title_elem else "N/A"
-                    href = await link_elem.get_attribute("href") if link_elem else ""
-                    desc = (await desc_elem.inner_text()).strip() if desc_elem else ""
-                    upvotes = (await upvote_elem.inner_text()).strip() if upvote_elem else "0"
+                        title = (await title_elem.inner_text()).strip() if title_elem else "N/A"
+                        href = await link_elem.get_attribute("href") if link_elem else ""
+                        desc = (await desc_elem.inner_text()).strip() if desc_elem else ""
+                        upvotes = (await upvote_elem.inner_text()).strip() if upvote_elem else "0"
 
-                    full_url = f"https://huggingface.co{href}" if href.startswith("/") else href
+                        full_url = f"https://huggingface.co{href}" if href.startswith("/") else href
 
-                    papers.append({
-                        "title": title,
-                        "url": full_url,
-                        "description": desc,
-                        "upvotes": upvotes
-                    })
+                        papers.append({
+                            "title": title,
+                            "url": full_url,
+                            "description": desc,
+                            "upvotes": upvotes
+                        })
 
-                logger.info(f"✅ Successfully extracted {len(papers)} papers using Playwright.")
+                    logger.info(f"✅ Successfully extracted {len(papers)} papers using Playwright.")
 
-            except Exception as e:
-                logger.warning(f"⚠️ Playwright direct DOM extraction failed or timed out: {e}")
-                logger.info("🔄 Falling back to HuggingFace REST API...")
-                papers = await self._fallback_api(max_items)
+                except Exception as e:
+                    logger.warning(f"⚠️ Playwright direct DOM extraction failed or timed out: {e}")
+                    logger.info("🔄 Falling back to HuggingFace REST API...")
+                    papers = await self._fallback_api(max_items)
 
-            finally:
-                await context.close()
-                await browser.close()
+                finally:
+                    if context:
+                        try:
+                            await context.close()
+                        except Exception:
+                            pass
+                    if browser:
+                        try:
+                            await browser.close()
+                        except Exception:
+                            pass
+        except Exception as outer_e:
+            logger.warning(f"⚠️ Playwright browser initialization completely failed: {outer_e}")
+            logger.info("🔄 Falling back to HuggingFace REST API...")
+            papers = await self._fallback_api(max_items)
 
         return papers
 

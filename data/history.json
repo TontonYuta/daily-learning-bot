@@ -1,0 +1,29 @@
+{
+  "sent_papers": [
+    {
+      "url": "https://huggingface.co/papers/2610.31329",
+      "title": "WeVisOne-VL: Unified Visual Perception from Objects to Pixels",
+      "sent_at": "2026-10-25T00:15:17.991180+07:00"
+    },
+    {
+      "url": "https://huggingface.co/papers/2610.24738",
+      "title": "Editing Images into Reusable Layers via Compositional Edit-Prior Distillation",
+      "sent_at": "2026-10-25T00:15:17.991180+07:00"
+    },
+    {
+      "url": "https://huggingface.co/papers/2610.30926",
+      "title": "Making MLLM Latents Matter: Factor-Aware Predictive Learning for Cinematic Video Generation",
+      "sent_at": "2026-10-25T00:15:17.991180+07:00"
+    },
+    {
+      "url": "https://huggingface.co/papers/2610.30181",
+      "title": "Deep Search in Real-World Web Environments",
+      "sent_at": "2026-10-25T00:15:17.991180+07:00"
+    },
+    {
+      "url": "https://huggingface.co/papers/2610.30949",
+      "title": "IQuest-Q1: Advancing Foundation Capabilities for Agentic CLI Systems",
+      "sent_at": "2026-10-25T00:15:17.991180+07:00"
+    }
+  ]
+}
