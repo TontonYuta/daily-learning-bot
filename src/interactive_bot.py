@@ -1,13 +1,16 @@
 import asyncio
 import logging
 import os
+from datetime import datetime, timedelta
+from typing import Optional, List
 import httpx
 from dotenv import load_dotenv
 
-from src.crawler import MultiCategoryNewsCrawler
+from src.crawler import MultiCategoryNewsCrawler, DEFAULT_FEED_REGISTRY
 from src.digest import DigestGenerator
 from src.telegram_sender import TelegramSender
-from src.history import HistoryManager
+from src.history import HistoryManager, VN_TZ
+from src.main import run_pipeline
 from google import genai
 
 load_dotenv()
@@ -19,12 +22,56 @@ TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
+async def setup_bot_commands(bot_token: Optional[str] = None):
+    """Đăng ký danh sách menu lệnh hiển thị trên thanh gõ phím của Telegram."""
+    token = bot_token or TELEGRAM_BOT_TOKEN
+    if not token:
+        return
+    url = f"https://api.telegram.org/bot{token}/setMyCommands"
+    commands = [
+        {"command": "read", "description": "Điểm tin đầy đủ 7 lĩnh vực (kèm link)"},
+        {"command": "ai", "description": "Điểm tin chuyên sâu AI & Papers mới"},
+        {"command": "data", "description": "Điểm tin Data (BA, DA, DS, DE)"},
+        {"command": "kinhte", "description": "Điểm tin Kinh tế (VN & Quốc tế)"},
+        {"command": "xahoi", "description": "Điểm tin Xã hội (VN & Quốc tế)"},
+        {"command": "math", "description": "Bài học trực giác Toán THPT"},
+        {"command": "now", "description": "Kích hoạt gửi ngay bản tin chính thức"},
+        {"command": "help", "description": "Xem hướng dẫn & danh sách lệnh"}
+    ]
+    try:
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            res = await client.post(url, json={"commands": commands})
+            if res.status_code == 200:
+                logger.info("✅ Đã đăng ký menu lệnh Telegram thành công!")
+    except Exception as e:
+        logger.warning(f"Không thể thiết lập menu Telegram: {e}")
+
 async def handle_read_command(chat_id: int):
     """Khi user gõ /read hoặc /baidoc: Cào dữ liệu mới nhất 7 lĩnh vực và sinh bài đọc ngay lập tức."""
     sender = TelegramSender(bot_token=TELEGRAM_BOT_TOKEN, chat_id=str(chat_id))
     await sender.send_message("⏳ <i>Đang cào tin tức mới nhất (Kinh tế, Xã hội, AI, BA, DA, DS, DE) và biên soạn bài đọc cho bạn... Vui lòng đợi trong giây lát!</i>")
 
     crawler = MultiCategoryNewsCrawler()
+    raw_news = await crawler.crawl_all_categories(limit_per_source=3)
+
+    history_manager = HistoryManager()
+    selected_news = history_manager.filter_unseen_by_category(raw_news, max_per_category=2)
+    formatted_data = crawler.format_for_llm(selected_news)
+
+    generator = DigestGenerator(api_key=GEMINI_API_KEY)
+    digest_html = generator.generate(formatted_data)
+
+    success = await sender.send_message(digest_html)
+    if success:
+        history_manager.save_history_from_categories(selected_news)
+
+async def handle_category_command(chat_id: int, categories: List[str], label: str):
+    """Cào và biên soạn nhanh cho một hoặc nhiều danh mục cụ thể theo yêu cầu on-demand."""
+    sender = TelegramSender(bot_token=TELEGRAM_BOT_TOKEN, chat_id=str(chat_id))
+    await sender.send_message(f"⏳ <i>Đang cào dữ liệu mới nhất cho chuyên mục <b>{label}</b>... Vui lòng đợi trong giây lát!</i>")
+
+    custom_registry = {cat: DEFAULT_FEED_REGISTRY[cat] for cat in categories if cat in DEFAULT_FEED_REGISTRY}
+    crawler = MultiCategoryNewsCrawler(feed_registry=custom_registry)
     raw_news = await crawler.crawl_all_categories(limit_per_source=3)
 
     history_manager = HistoryManager()
@@ -108,14 +155,35 @@ async def handle_ask_question(chat_id: int, question: str):
         logger.error(f"Lỗi trả lời câu hỏi: {e}")
         await sender.send_message("❌ Có lỗi xảy ra khi xử lý câu hỏi.")
 
+async def daily_scheduler_loop():
+    """Chạy ngầm để tự động phát bản tin mỗi ngày lúc 07:00 AM VN song song với việc lắng nghe lệnh 24/7."""
+    logger.info("⏰ Background Daily Scheduler đã kích hoạt (chờ mốc 07:00 AM VN mỗi ngày)...")
+    while True:
+        now = datetime.now(VN_TZ)
+        target = now.replace(hour=7, minute=0, second=0, microsecond=0)
+        if now >= target:
+            target += timedelta(days=1)
+        wait_seconds = (target - now).total_seconds()
+        logger.info(f"⏳ Bản tin tự động tiếp theo sẽ gửi sau {wait_seconds/3600:.2f} giờ ({target.strftime('%Y-%m-%d %H:%M:%S')})")
+
+        await asyncio.sleep(wait_seconds)
+
+        logger.info("🔔 Đã đến 07:00 AM VN! Tự động kích hoạt chu trình gửi bản tin ngày...")
+        try:
+            await run_pipeline()
+        except Exception as e:
+            logger.error(f"Lỗi khi chạy scheduled pipeline: {e}")
+
+        await asyncio.sleep(60)
+
 async def start_polling():
     """Lắng nghe tin nhắn từ Telegram bằng cơ chế Long Polling siêu nhẹ (không tốn tài nguyên)."""
     if not TELEGRAM_BOT_TOKEN:
         logger.error("❌ Chưa cấu hình TELEGRAM_BOT_TOKEN trong .env!")
         return
 
-    logger.info("🤖 Bot đang chạy ở chế độ Lắng nghe Tương tác 2 Chiều (Polling Mode)...")
-    logger.info("👉 Hãy mở Telegram và nhắn lệnh /read, /math hoặc bất kỳ câu hỏi nào!")
+    logger.info("🤖 Bot đang chạy ở chế độ Lắng nghe Tương tác 2 Chiều 24/7 (Polling Mode)...")
+    logger.info("👉 Hãy mở Telegram và nhắn lệnh /read, /ai, /data, /kinhte, /xahoi, /math hoặc bất kỳ câu hỏi nào!")
 
     offset = 0
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/getUpdates"
@@ -136,20 +204,46 @@ async def start_polling():
                             continue
 
                         logger.info(f"📩 Nhận tin nhắn từ {chat_id}: {text}")
+                        cmd = text.split()[0].lower()
 
-                        if text in ["/start", "/help"]:
+                        if cmd in ["/start", "/help"]:
                             welcome_msg = (
-                                "👋 <b>Chào mừng bạn đến với Bot Điểm Tin Đa Lĩnh Vực!</b>\n\n"
-                                "Bạn có thể chủ động nhờ bot ra bản tin bất kỳ lúc nào:\n"
-                                "• <code>/read</code> hoặc <code>/baidoc</code>: Điểm tin 7 lĩnh vực (Kinh tế, Xã hội, AI, BA, DA, DS, DE) cực ngắn gọn kèm link nguồn bài đọc.\n"
-                                "• <code>/math</code>: Bài học trực giác Toán THPT kết nối thực tế & AI.\n"
-                                "• <b>Hoặc gõ trực tiếp bất kỳ câu hỏi nào</b> để nhận câu trả lời thực chiến từ kỹ sư senior!"
+                                "👋 <b>Chào mừng bạn đến với Bot Điểm Tin Đa Lĩnh Vực 24/7!</b>\n\n"
+                                "Bot luôn sẵn sàng phục vụ bạn bất cứ lúc nào. Bạn có thể dùng các lệnh:\n"
+                                "• <code>/read</code>: Điểm tin đầy đủ 7 lĩnh vực (Kinh tế, Xã hội, AI, BA, DA, DS, DE)\n"
+                                "• <code>/ai</code>: Điểm tin riêng nhóm AI & Paper mới nhất\n"
+                                "• <code>/data</code>: Điểm tin nhóm Dữ liệu (BA, DA, DS, DE)\n"
+                                "• <code>/kinhte</code>: Điểm tin chuyên mục Kinh tế\n"
+                                "• <code>/xahoi</code>: Điểm tin chuyên mục Xã hội\n"
+                                "• <code>/math</code>: Bài học trực giác Toán THPT kết nối AI\n"
+                                "• <code>/now</code>: Kích hoạt ngay chu trình phát tin tự động\n\n"
+                                "👉 <b>Hoặc gõ trực tiếp bất kỳ câu hỏi nào</b> để nhận câu trả lời phân tích thực chiến từ kỹ sư senior!"
                             )
                             sender = TelegramSender(bot_token=TELEGRAM_BOT_TOKEN, chat_id=str(chat_id))
                             asyncio.create_task(sender.send_message(welcome_msg))
-                        elif text in ["/read", "/baidoc"]:
+                        elif cmd in ["/read", "/baidoc", "/all"]:
                             asyncio.create_task(handle_read_command(chat_id))
-                        elif text in ["/math", "/toan"]:
+                        elif cmd in ["/ai"]:
+                            asyncio.create_task(handle_category_command(chat_id, ["AI"], "AI & Trí Tuệ Nhân Tạo"))
+                        elif cmd in ["/data"]:
+                            asyncio.create_task(handle_category_command(chat_id, ["BA", "DA", "DS", "DE"], "Data (BA, DA, DS, DE)"))
+                        elif cmd in ["/kinhte", "/kt"]:
+                            asyncio.create_task(handle_category_command(chat_id, ["Kinh tế"], "Kinh Tế"))
+                        elif cmd in ["/xahoi", "/xh"]:
+                            asyncio.create_task(handle_category_command(chat_id, ["Xã hội"], "Xã Hội"))
+                        elif cmd in ["/ba"]:
+                            asyncio.create_task(handle_category_command(chat_id, ["BA"], "Business Analyst"))
+                        elif cmd in ["/da"]:
+                            asyncio.create_task(handle_category_command(chat_id, ["DA"], "Data Analyst"))
+                        elif cmd in ["/ds"]:
+                            asyncio.create_task(handle_category_command(chat_id, ["DS"], "Data Scientist"))
+                        elif cmd in ["/de"]:
+                            asyncio.create_task(handle_category_command(chat_id, ["DE"], "Data Engineer"))
+                        elif cmd in ["/now", "/daily"]:
+                            sender = TelegramSender(bot_token=TELEGRAM_BOT_TOKEN, chat_id=str(chat_id))
+                            asyncio.create_task(sender.send_message("🚀 <i>Đang kích hoạt chu trình phát bản tin chính thức...</i>"))
+                            asyncio.create_task(run_pipeline())
+                        elif cmd in ["/math", "/toan"]:
                             asyncio.create_task(handle_math_command(chat_id))
                         else:
                             asyncio.create_task(handle_ask_question(chat_id, text))
@@ -160,5 +254,12 @@ async def start_polling():
                 logger.error(f"Lỗi polling: {e}")
                 await asyncio.sleep(3)
 
+async def main():
+    await setup_bot_commands(TELEGRAM_BOT_TOKEN)
+    await asyncio.gather(
+        start_polling(),
+        daily_scheduler_loop()
+    )
+
 if __name__ == "__main__":
-    asyncio.run(start_polling())
+    asyncio.run(main())

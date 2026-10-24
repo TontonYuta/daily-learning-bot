@@ -1,0 +1,15 @@
+[Unit]
+Description=Daily Learning Bot - 24/7 On-Demand & Daily Scheduler
+After=network.target
+
+[Service]
+Type=simple
+User=tontonyuta
+WorkingDirectory=/home/tontonyuta/daily-learning-bot
+ExecStart=/home/tontonyuta/.local/bin/uv run python -m src.interactive_bot
+Restart=always
+RestartSec=10
+EnvironmentFile=/home/tontonyuta/daily-learning-bot/.env
+
+[Install]
+WantedBy=multi-user.target
