@@ -1,6 +1,9 @@
 import asyncio
 import logging
+import re
+import xml.etree.ElementTree as ET
 from typing import List, Dict, Any, Optional
+import httpx
 from playwright.async_api import async_playwright, Browser, Page, BrowserContext
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -125,6 +128,178 @@ class PlaywrightAICrawler:
             lines.append(f"   - **Mô tả/Tóm tắt:** {p['description']}")
             lines.append(f"   - **Link gốc:** {p['url']}")
         return "\n".join(lines)
+
+def clean_html(raw_html: str) -> str:
+    """Loại bỏ các thẻ HTML để trích xuất text thuần túy."""
+    if not raw_html:
+        return ""
+    clean = re.sub(r"<[^>]+>", " ", raw_html)
+    return " ".join(clean.split()).strip()
+
+def parse_rss_feed(content: bytes, limit: int = 3, origin: str = "Quốc tế") -> List[Dict[str, Any]]:
+    """Phân tích cú pháp RSS 2.0 / Atom feed thành danh sách bài viết chuẩn hóa."""
+    items: List[Dict[str, Any]] = []
+    try:
+        root = ET.fromstring(content)
+        # 1. Tìm các node <item> (RSS)
+        nodes = root.findall(".//item")
+        if not nodes:
+            nodes = [e for e in root.iter() if e.tag.endswith("item")]
+
+        if nodes:
+            for node in nodes[:limit]:
+                t = next((c for c in node if c.tag.endswith("title")), None)
+                l = next((c for c in node if c.tag.endswith("link")), None)
+                d = next((c for c in node if c.tag.endswith("description")), None)
+
+                title = t.text.strip() if t is not None and t.text else ""
+                url = l.text.strip() if l is not None and l.text else ""
+                desc = clean_html(d.text) if d is not None and d.text else ""
+
+                if title and url:
+                    items.append({
+                        "title": title,
+                        "url": url,
+                        "description": desc[:250],
+                        "origin": origin
+                    })
+            return items
+
+        # 2. Tìm các node <entry> (Atom)
+        entries = [e for e in root.iter() if e.tag.endswith("entry")]
+        for entry in entries[:limit]:
+            t = next((c for c in entry if c.tag.endswith("title")), None)
+            l = next((c for c in entry if c.tag.endswith("link")), None)
+            s = next((c for c in entry if c.tag.endswith("summary") or c.tag.endswith("content")), None)
+
+            title = t.text.strip() if t is not None and t.text else ""
+            url = l.get("href", "") if l is not None else (l.text or "")
+            desc = clean_html(s.text) if s is not None and s.text else ""
+
+            if title and url:
+                items.append({
+                    "title": title,
+                    "url": url,
+                    "description": desc[:250],
+                    "origin": origin
+                })
+    except Exception as e:
+        logger.debug(f"Lỗi phân tích cú pháp feed XML: {e}")
+    return items
+
+DEFAULT_FEED_REGISTRY = {
+    "Kinh tế": [
+        {"name": "VnExpress Kinh Doanh", "origin": "VN", "url": "https://vnexpress.net/rss/kinh-doanh.rss"},
+        {"name": "The Guardian Business", "origin": "Quốc tế", "url": "https://www.theguardian.com/business/rss"},
+        {"name": "CafeF Quốc tế", "origin": "VN", "url": "https://cafef.vn/tai-chinh-quoc-te.rss"},
+    ],
+    "Xã hội": [
+        {"name": "VnExpress Thời sự", "origin": "VN", "url": "https://vnexpress.net/rss/thoi-su.rss"},
+        {"name": "The Guardian World", "origin": "Quốc tế", "url": "https://www.theguardian.com/world/rss"},
+    ],
+    "AI": [
+        {"name": "Hugging Face Daily Papers", "origin": "Quốc tế", "url": "https://huggingface.co/api/daily_papers", "type": "hf_api"},
+        {"name": "TechCrunch AI", "origin": "Quốc tế", "url": "https://techcrunch.com/category/artificial-intelligence/feed/"},
+    ],
+    "BA": [
+        {"name": "HN Business Analysis & Product", "origin": "Quốc tế", "url": "https://hnrss.org/newest?q=Business+Analyst+OR+Product+Management"},
+    ],
+    "DA": [
+        {"name": "HN Data Analytics & SQL", "origin": "Quốc tế", "url": "https://hnrss.org/newest?q=Data+Analyst+OR+SQL+OR+PowerBI+OR+Analytics"},
+        {"name": "KDnuggets Data Analytics", "origin": "Quốc tế", "url": "https://www.kdnuggets.com/feed"},
+    ],
+    "DS": [
+        {"name": "KDnuggets Data Science & ML", "origin": "Quốc tế", "url": "https://www.kdnuggets.com/feed"},
+        {"name": "HN Data Science & ML", "origin": "Quốc tế", "url": "https://hnrss.org/newest?q=Data+Science+OR+Machine+Learning"},
+    ],
+    "DE": [
+        {"name": "Data Engineering Weekly", "origin": "Quốc tế", "url": "https://www.dataengineeringweekly.com/feed"},
+        {"name": "HN Data Engineering", "origin": "Quốc tế", "url": "https://hnrss.org/newest?q=Data+Engineering+OR+dbt+OR+Airflow+OR+Kafka"},
+    ],
+}
+
+class MultiCategoryNewsCrawler:
+    """Bộ thu thập tin tức đa danh mục: Kinh tế, Xã hội, AI, BA, DA, DS, DE (Trong nước & Quốc tế)."""
+
+    def __init__(self, feed_registry: Optional[Dict[str, List[Dict[str, str]]]] = None, timeout: float = 8.0):
+        self.feed_registry = feed_registry or DEFAULT_FEED_REGISTRY
+        self.timeout = timeout
+
+    async def fetch_source(self, client: httpx.AsyncClient, source: Dict[str, str], limit: int = 3) -> List[Dict[str, Any]]:
+        """Cào tin tức từ một nguồn đơn lẻ với cơ chế timeout an toàn."""
+        url = source["url"]
+        origin = source.get("origin", "Quốc tế")
+        source_type = source.get("type", "rss")
+
+        try:
+            res = await client.get(url)
+            if res.status_code != 200:
+                logger.warning(f"Nguồn {url} trả về HTTP {res.status_code}")
+                return []
+
+            if source_type == "hf_api":
+                papers_data = res.json()[:limit]
+                items = []
+                for p_item in papers_data:
+                    p = p_item.get("paper", {})
+                    items.append({
+                        "title": p.get("title", "Untitled Paper"),
+                        "url": f"https://huggingface.co/papers/{p.get('id', '')}",
+                        "description": (p.get("summary") or "")[:250],
+                        "origin": origin,
+                        "upvotes": str(p.get("upvotes", 0))
+                    })
+                return items
+            else:
+                return parse_rss_feed(res.content, limit=limit, origin=origin)
+        except Exception as e:
+            logger.warning(f"Lỗi khi cào từ {url}: {e}")
+            return []
+
+    async def crawl_all_categories(self, limit_per_source: int = 3) -> Dict[str, List[Dict[str, Any]]]:
+        """Thu thập song song bất đồng bộ toàn bộ 7 danh mục tin tức."""
+        categorized_results: Dict[str, List[Dict[str, Any]]] = {cat: [] for cat in self.feed_registry}
+
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+        }
+
+        async with httpx.AsyncClient(timeout=self.timeout, follow_redirects=True, headers=headers) as client:
+            tasks = []
+            category_mapping = []
+
+            for category, sources in self.feed_registry.items():
+                for src in sources:
+                    tasks.append(self.fetch_source(client, src, limit=limit_per_source))
+                    category_mapping.append(category)
+
+            results = await asyncio.gather(*tasks, return_exceptions=True)
+
+            for category, res in zip(category_mapping, results):
+                if isinstance(res, list):
+                    categorized_results[category].extend(res)
+
+        return categorized_results
+
+    def format_for_llm(self, categorized_news: Dict[str, List[Dict[str, Any]]]) -> str:
+        """Định dạng dữ liệu các danh mục thành Markdown ngắn gọn cho Gemini."""
+        sections = ["### BẢN TIN ĐA LĨNH VỰC HÔM NAY (Kinh tế, Xã hội, AI, BA, DA, DS, DE):"]
+
+        for category, items in categorized_news.items():
+            sections.append(f"\n#### [{category.upper()}]:")
+            if not items:
+                sections.append("- (Không có dữ liệu mới từ web)")
+                continue
+
+            for idx, item in enumerate(items, 1):
+                origin_tag = f"[{item.get('origin', 'Quốc tế')}]"
+                sections.append(
+                    f"{idx}. {origin_tag} **{item['title']}**\n"
+                    f"   - Link: {item['url']}\n"
+                    f"   - Tóm tắt: {item.get('description', '')}"
+                )
+
+        return "\n".join(sections)
 
 if __name__ == "__main__":
     crawler = PlaywrightAICrawler(headless=True)

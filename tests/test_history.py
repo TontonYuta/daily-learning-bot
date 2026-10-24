@@ -47,6 +47,33 @@ def test_history_manager_size_limit(tmp_path):
     assert len(history) == 5
     assert history[-1]["url"] == "https://huggingface.co/papers/9"
 
+def test_history_manager_filter_by_category(tmp_path):
+    history_file = tmp_path / "test_cat_history.json"
+    manager = HistoryManager(history_file=str(history_file))
+
+    categorized = {
+        "Kinh tế": [
+            {"title": "KT 1", "url": "https://example.com/kt1"},
+            {"title": "KT 2", "url": "https://example.com/kt2"}
+        ],
+        "AI": [
+            {"title": "AI 1", "url": "https://example.com/ai1"}
+        ]
+    }
+
+    filtered = manager.filter_unseen_by_category(categorized, max_per_category=1)
+    assert len(filtered["Kinh tế"]) == 1
+    assert filtered["Kinh tế"][0]["url"] == "https://example.com/kt1"
+    assert len(filtered["AI"]) == 1
+
+    # Save
+    manager.save_history_from_categories(filtered)
+    assert len(manager.load_history()) == 2
+
+    # Next run: kt1 is now seen, so kt2 should be returned
+    filtered_run2 = manager.filter_unseen_by_category(categorized, max_per_category=1)
+    assert filtered_run2["Kinh tế"][0]["url"] == "https://example.com/kt2"
+
 @pytest.mark.asyncio
 async def test_crawler_launch_failure_fallback():
     """Verify that if Playwright browser launch raises an exception, crawler gracefully uses fallback API."""

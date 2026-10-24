@@ -2,7 +2,7 @@ import asyncio
 import logging
 from dotenv import load_dotenv
 
-from src.crawler import PlaywrightAICrawler
+from src.crawler import MultiCategoryNewsCrawler
 from src.digest import DigestGenerator
 from src.telegram_sender import TelegramSender
 from src.history import HistoryManager
@@ -17,16 +17,16 @@ logging.basicConfig(
 logger = logging.getLogger("DailyBot")
 
 async def run_pipeline():
-    logger.info("🚀 Bắt đầu chu trình tự động hóa học tập mỗi ngày...")
+    logger.info("🚀 Bắt đầu chu trình điểm tin 7 lĩnh vực (Kinh tế, Xã hội, AI, BA, DA, DS, DE)...")
 
-    # 1. Cào dữ liệu web bằng Playwright (lấy 10 bài để có đủ bài mới sau khi khử trùng lặp)
-    crawler = PlaywrightAICrawler(headless=True)
-    raw_papers = await crawler.crawl_huggingface_papers(max_items=10)
+    # 1. Cào dữ liệu đa danh mục (trong nước & quốc tế)
+    crawler = MultiCategoryNewsCrawler()
+    raw_news = await crawler.crawl_all_categories(limit_per_source=3)
 
-    # 2. Khử trùng lặp: Lọc các bài báo chưa từng gửi trong quá khứ
+    # 2. Khử trùng lặp: Lọc các bài báo chưa từng gửi trong quá khứ theo từng danh mục
     history_manager = HistoryManager()
-    selected_papers = history_manager.filter_unseen(raw_papers, max_items=5)
-    formatted_data = crawler.format_for_llm(selected_papers)
+    selected_news = history_manager.filter_unseen_by_category(raw_news, max_per_category=2)
+    formatted_data = crawler.format_for_llm(selected_news)
 
     # 3. Biên tập và lọc tin rác bằng Gemini Flash
     generator = DigestGenerator()
@@ -38,7 +38,7 @@ async def run_pipeline():
 
     if success:
         # 5. Lưu lại lịch sử bài đã gửi để không bị lặp lại vào ngày mai
-        history_manager.save_history(selected_papers)
+        history_manager.save_history_from_categories(selected_news)
         logger.info("🎉 Chu trình hoàn thành xuất sắc!")
     else:
         logger.warning("⚠️ Chu trình hoàn tất nhưng gặp sự cố khi gửi tin nhắn.")

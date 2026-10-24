@@ -4,7 +4,7 @@ import os
 import httpx
 from dotenv import load_dotenv
 
-from src.crawler import PlaywrightAICrawler
+from src.crawler import MultiCategoryNewsCrawler
 from src.digest import DigestGenerator
 from src.telegram_sender import TelegramSender
 from src.history import HistoryManager
@@ -20,23 +20,23 @@ TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 async def handle_read_command(chat_id: int):
-    """Khi user gõ /read hoặc /baidoc: Cào dữ liệu mới nhất và sinh bài đọc ngay lập tức."""
+    """Khi user gõ /read hoặc /baidoc: Cào dữ liệu mới nhất 7 lĩnh vực và sinh bài đọc ngay lập tức."""
     sender = TelegramSender(bot_token=TELEGRAM_BOT_TOKEN, chat_id=str(chat_id))
-    await sender.send_message("⏳ <i>Đang cào dữ liệu mới nhất từ Hugging Face và biên soạn bài đọc cho bạn... Vui lòng đợi trong giây lát!</i>")
+    await sender.send_message("⏳ <i>Đang cào tin tức mới nhất (Kinh tế, Xã hội, AI, BA, DA, DS, DE) và biên soạn bài đọc cho bạn... Vui lòng đợi trong giây lát!</i>")
 
-    crawler = PlaywrightAICrawler(headless=True)
-    papers = await crawler.crawl_huggingface_papers(max_items=8)
+    crawler = MultiCategoryNewsCrawler()
+    raw_news = await crawler.crawl_all_categories(limit_per_source=3)
 
     history_manager = HistoryManager()
-    selected_papers = history_manager.filter_unseen(papers, max_items=5)
-    formatted_data = crawler.format_for_llm(selected_papers)
+    selected_news = history_manager.filter_unseen_by_category(raw_news, max_per_category=2)
+    formatted_data = crawler.format_for_llm(selected_news)
 
     generator = DigestGenerator(api_key=GEMINI_API_KEY)
     digest_html = generator.generate(formatted_data)
 
     success = await sender.send_message(digest_html)
     if success:
-        history_manager.save_history(selected_papers)
+        history_manager.save_history_from_categories(selected_news)
 
 async def handle_math_command(chat_id: int):
     """Khi user gõ /math: Sinh riêng 1 bài toán THPT kết nối với thực tế/AI, ngắn gọn và thực dụng."""
@@ -139,11 +139,11 @@ async def start_polling():
 
                         if text in ["/start", "/help"]:
                             welcome_msg = (
-                                "👋 <b>Chào mừng bạn đến với Bot Trí Tuệ Cá Nhân!</b>\n\n"
-                                "Bạn có thể chủ động nhờ bot ra bài bất kỳ lúc nào bằng các lệnh sau:\n"
-                                "• <code>/read</code> hoặc <code>/baidoc</code>: Cào tin tức AI mới nhất và tạo bài đọc ngay.\n"
-                                "• <code>/math</code>: Tạo ngay 1 bài học trực giác Toán THPT kết nối AI.\n"
-                                "• <b>Hoặc gõ trực tiếp bất kỳ câu hỏi nào</b> (ví dụ: <i>Giải thích Attention là gì</i>) để bot giải thích ngay lập tức!"
+                                "👋 <b>Chào mừng bạn đến với Bot Điểm Tin Đa Lĩnh Vực!</b>\n\n"
+                                "Bạn có thể chủ động nhờ bot ra bản tin bất kỳ lúc nào:\n"
+                                "• <code>/read</code> hoặc <code>/baidoc</code>: Điểm tin 7 lĩnh vực (Kinh tế, Xã hội, AI, BA, DA, DS, DE) cực ngắn gọn kèm link nguồn bài đọc.\n"
+                                "• <code>/math</code>: Bài học trực giác Toán THPT kết nối thực tế & AI.\n"
+                                "• <b>Hoặc gõ trực tiếp bất kỳ câu hỏi nào</b> để nhận câu trả lời thực chiến từ kỹ sư senior!"
                             )
                             sender = TelegramSender(bot_token=TELEGRAM_BOT_TOKEN, chat_id=str(chat_id))
                             asyncio.create_task(sender.send_message(welcome_msg))

@@ -71,6 +71,31 @@ class HistoryManager:
         logger.warning("⚠️ Tất cả các bài báo cào được đều đã từng gửi trước đó. Chọn các bài hàng đầu để không làm rỗng bản tin.")
         return papers[:max_items]
 
+    def filter_unseen_by_category(
+        self,
+        categorized_items: Dict[str, List[Dict[str, Any]]],
+        max_per_category: int = 2
+    ) -> Dict[str, List[Dict[str, Any]]]:
+        """Lọc bài viết theo từng danh mục (Kinh tế, Xã hội, AI, BA, DA, DS, DE) để tránh trùng lặp."""
+        seen_urls = self.get_seen_urls()
+        result = {}
+
+        for cat, items in categorized_items.items():
+            unseen = [item for item in items if item.get("url", "").strip().rstrip("/") not in seen_urls]
+            if unseen:
+                result[cat] = unseen[:max_per_category]
+            else:
+                result[cat] = items[:max_per_category]
+
+        return result
+
+    def save_history_from_categories(self, categorized_items: Dict[str, List[Dict[str, Any]]]) -> None:
+        """Lưu toàn bộ bài báo từ các danh mục vào lịch sử."""
+        flat_list = []
+        for items in categorized_items.values():
+            flat_list.extend(items)
+        self.save_history(flat_list)
+
     def save_history(self, newly_sent_papers: List[Dict[str, Any]]) -> None:
         """Ghi nhận các bài báo vừa gửi vào lịch sử và giới hạn kích thước tối đa."""
         if not newly_sent_papers:

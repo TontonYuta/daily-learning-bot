@@ -17,35 +17,53 @@ class DigestGenerator:
             logger.warning("⚠️ Chưa cấu hình GEMINI_API_KEY. Sử dụng bản tin mẫu (Dry-run mode).")
             return self._mock_digest()
 
-        logger.info("🧠 Đang gọi Gemini 2.5 Flash để lọc nhiễu và biên tập bản tin...")
+        logger.info("🧠 Đang gọi Gemini Flash để lọc nhiễu và biên tập bản tin 7 lĩnh vực...")
         client = genai.Client(api_key=self.api_key)
 
         prompt = f"""
-Bạn là một kỹ sư phần mềm thực dụng. Hãy đọc dữ liệu thô dưới đây và viết một bản tin vắn tắt, ĐI THẲNG VÀO NỘI DUNG CHÍNH, viết tự nhiên như người thật nhắn cho đồng nghiệp, TUYỆT ĐỐI KHÔNG CÓ GIỌNG VĂN AI SLOP.
+Bạn là một trợ lý thông tin và kỹ sư dữ liệu thực dụng. Hãy đọc dữ liệu tin tức thô dưới đây và biên soạn bản tin tổng hợp 7 lĩnh vực: Kinh tế, Xã hội, AI, BA, DA, DS, DE.
+
+YÊU CẦU QUAN TRỌNG NHẤT:
+- THÔNG TIN CỰC KỲ NGẮN GỌN: Mỗi ý chỉ đúng 1 dòng tóm tắt bản chất, con số hoặc bài học kỹ thuật cốt lõi.
+- BẮT BUỘC KÈM ĐƯỜNG LINK NGUỒN BÀI ĐỌC: Dùng thẻ hyperlink HTML Telegram: <a href="[url]">[Tiêu đề bài viết]</a>.
 
 DỮ LIỆU ĐẦU VÀO:
 {raw_crawled_data}
 
-QUY TẮC BẮT BUỘC ĐỂ DIỆT VĂN PHONG AI:
+QUY TẮC BẮT BUỘC ĐỂ DIỆT VĂN PHONG AI SLOP:
 1. DANH SÁCH TỪ BỊ CẤM (TUYỆT ĐỐI KHÔNG DÙNG):
    - "đột phá", "cách mạng", "bước ngoặt", "then chốt", "quan trọng", "hãy tưởng tượng", "hãy cùng khám phá", "kỷ nguyên số", "vũ khí bí mật", "không thể phủ nhận".
 2. CÁCH VIẾT:
-   - Không mở bài chào hỏi dài dòng, không kết bài tổng kết đạo lý.
-   - Viết câu ngắn, chắc, trần thuật sự thật kỹ thuật (Ground Truth).
-   - Giải thích bản chất thay vì dùng tính từ khen ngợi.
+   - Tuyệt đối không mở bài chào hỏi, không kết bài tổng kết đạo lý.
+   - Đi thẳng vào sự thật, số liệu hoặc cơ chế chính trong 1 dòng.
+   - Giữ nguyên link nguồn đã cung cấp trong dữ liệu.
 
-CẤU TRÚC BẢN TIN (Dùng HTML Telegram: <b>, <code>, <a>, <tg-spoiler>):
+CẤU TRÚC BẢN TIN (Dùng HTML Telegram: <b>, <code>, <a>, <i>):
 
-⚡ <b>TIÊU ĐIỂM AI HÔM NAY</b>
-• <b>Công nghệ:</b> [Tên mô hình/paper + Link nếu có]
-• <b>Bản chất:</b> [Giải quyết đúng vấn đề gì, cơ chế ngắn gọn trong 1-2 câu]
-• <b>Áp dụng:</b> [Lệnh terminal, config cụ thể hoặc cách dùng thực tế trong 1 dòng]
+⚡ <b>ĐIỂM TIN ĐA LĨNH VỰC — 07:00 AM</b>
 
-📐 <b>TOÁN THPT & THỰC TẾ AI</b>
-• <b>Khái niệm:</b> [Tên khái niệm lớp 10, 11 hoặc 12]
-• <b>Bản chất cốt lõi:</b> [Ý nghĩa hình học/thực tế trần trụi, 1-2 câu]
-• <b>Ứng dụng trong AI:</b> [Thuật toán AI dùng nó vào đúng việc gì, không nói chung chung]
-• <b>Ví dụ nhanh:</b> [1 ví dụ số hoặc tình huống cụ thể]
+💼 <b>KINH TẾ</b>
+• <b>[VN]</b> <a href="[Link]">[Tiêu đề]</a>: [1 dòng số liệu/diễn biến cốt lõi]
+• <b>[Quốc tế]</b> <a href="[Link]">[Tiêu đề]</a>: [1 dòng số liệu/diễn biến cốt lõi]
+
+🌍 <b>XÃ HỘI</b>
+• <b>[VN]</b> <a href="[Link]">[Tiêu đề]</a>: [1 dòng sự kiện chính]
+• <b>[Quốc tế]</b> <a href="[Link]">[Tiêu đề]</a>: [1 dòng sự kiện chính]
+
+🤖 <b>AI (TRÍ TUỆ NHÂN TẠO)</b>
+• <a href="[Link]">[Tên paper/mô hình]</a>: [1 dòng bản chất kỹ thuật + lệnh hoặc cách áp dụng]
+
+📊 <b>BA (BUSINESS ANALYST)</b>
+• <a href="[Link]">[Tiêu đề]</a>: [1 dòng góc nhìn nghiệp vụ/phân tích quy trình thực chiến]
+
+📈 <b>DA (DATA ANALYST)</b>
+• <a href="[Link]">[Tiêu đề]</a>: [1 dòng kỹ thuật SQL/BI/Insight thực tế]
+
+🔬 <b>DS (DATA SCIENTIST)</b>
+• <a href="[Link]">[Tiêu đề]</a>: [1 dòng bản chất mô hình/thuật toán/Machine Learning]
+
+🛠️ <b>DE (DATA ENGINEER)</b>
+• <a href="[Link]">[Tiêu đề]</a>: [1 dòng kiến trúc Data Pipeline/Lakehouse/Stack tối ưu]
 """
 
         models_to_try = ["gemini-3.5-flash", "gemini-3.8-flash", "gemini-3.1-flash-lite"]
@@ -63,17 +81,28 @@ CẤU TRÚC BẢN TIN (Dùng HTML Telegram: <b>, <code>, <a>, <tg-spoiler>):
         return self._mock_digest()
 
     def _mock_digest(self) -> str:
-        """Bản tin mẫu chất lượng cao khi chưa có API key để test toàn bộ pipeline."""
-        return """🌅 <b>BẢN TIN KHỞI ĐỘNG TRÍ TUỆ — 07:00 AM</b>
+        """Bản tin mẫu cực kỳ ngắn gọn kèm link nguồn cho cả 7 danh mục khi chưa cấu hình API key."""
+        return """⚡ <b>ĐIỂM TIN ĐA LĨNH VỰC — 07:00 AM</b>
 
-🤖 <b>1. BẢN CHẤT CÔNG NGHỆ AI HÔM NAY</b>
-• <b>Đột phá thực tế:</b> <i>Flash-Decoding cho Mô hình Ngôn ngữ Nhỏ</i>. Kỹ thuật mới tối ưu hóa việc phân bổ bộ nhớ trong quá trình giải mã attention, giúp giảm 60% độ trễ sinh từ đầu tiên (Time to First Token).
-• <b>Tại sao bạn nên quan tâm?</b> Nếu bạn chạy mô hình cục bộ (Local LLM) trên máy tính xách tay hoặc VPS giá rẻ, phản hồi sẽ mượt hơn đáng kể mà không cần nâng cấp GPU.
-• <b>Bài học áp dụng ngay:</b> Khi dùng vLLM hoặc Ollama, hãy bật cờ flash-decoding để tận dụng tối đa băng thông bộ nhớ.
+💼 <b>KINH TẾ</b>
+• <b>[VN]</b> <a href="https://vnexpress.net/kinh-doanh">Doanh nghiệp xuất khẩu phục hồi đơn hàng</a>: Kim ngạch xuất khẩu quý tăng 14.5%, dẫn đầu bởi nhóm dệt may và linh kiện điện tử.
+• <b>[Quốc tế]</b> <a href="https://www.theguardian.com/business">Lãi suất toàn cầu tiếp tục hạ nhiệt</a>: Ngân hàng Trung ương châu Âu tiếp tục cắt giảm 25 điểm cơ bản nhằm kích cầu sản xuất.
 
-📐 <b>2. TOÁN HỌC & BẢN CHẤT TRỰC GIÁC (Toán THPT kết nối AI)</b>
-• <b>Khái niệm:</b> <i>Tích vô hướng của 2 Vectơ (Hình học Lớp 10)</i>
-• <b>Bản chất bằng mắt:</b> Hai mũi tên chỉ cùng hướng thì tích vô hướng cực đại; vuông góc (không liên quan) thì bằng 0; ngược hướng thì nhận giá trị âm.
-• <b>Thuật toán AI dùng nó thế nào?</b> Cơ chế Self-Attention trong ChatGPT biến mọi từ ngữ thành các vector hàng ngàn chiều. Tích vô hướng giữa hai từ đo mức độ liên quan ngữ nghĩa giữa chúng.
-• <b>Câu hỏi phản xạ 30 giây:</b> Nếu hai vector ngữ nghĩa có tích vô hướng bằng 0, nghĩa là hai khái niệm đó như thế nào với nhau?
-👉 <tg-spoiler>Đáp án: Hoàn toàn không liên quan đến nhau (độc lập trực giao).</tg-spoiler>"""
+🌍 <b>XÃ HỘI</b>
+• <b>[VN]</b> <a href="https://vnexpress.net/thoi-su">Mở rộng thêm đường bay nội địa</a>: Cục Hàng không yêu cầu tăng tần suất kết nối các trung tâm du lịch trọng điểm.
+• <b>[Quốc tế]</b> <a href="https://www.theguardian.com/world">Cam kết tài trợ khí hậu nông nghiệp</a>: 40 quốc gia thống nhất gói hỗ trợ 2 tỷ USD bảo đảm an ninh lương thực.
+
+🤖 <b>AI (TRÍ TUỆ NHÂN TẠO)</b>
+• <a href="https://huggingface.co/papers/2610.31329">WeVisOne-VL</a>: Hợp nhất nhận thức thị giác đa tầng từ vật thể đến từng pixel; áp dụng tăng tốc qua vLLM.
+
+📊 <b>BA (BUSINESS ANALYST)</b>
+• <a href="https://news.ycombinator.com">Kỹ thuật lập ma trận truy vết yêu cầu (RTM)</a>: Giảm 40% lỗi lệch pha nghiệp vụ giữa stakeholder và dev qua User Story Mapping.
+
+📈 <b>DA (DATA ANALYST)</b>
+• <a href="https://news.ycombinator.com">Window Functions tối ưu retention cohort</a>: Dùng <code>LEAD/LAG</code> và <code>DENSE_RANK</code> trong SQL nhanh gấp 3 lần so với self-join.
+
+🔬 <b>DS (DATA SCIENTIST)</b>
+• <a href="https://www.kdnuggets.com">Kiểm soát Overfitting khi tinh chỉnh LoRA</a>: Giữ rank $r=8$ đến $16$ kết hợp weight decay $0.01$ cho mô hình nhỏ ổn định nhất.
+
+🛠️ <b>DE (DATA ENGINEER)</b>
+• <a href="https://www.dataengineeringweekly.com">Kiến trúc Lakehouse với Apache Iceberg</a>: Tận dụng Hidden Partitioning và Metadata V2 giảm 70% chi phí scan trên S3/GCS."""
