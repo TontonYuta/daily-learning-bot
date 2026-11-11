@@ -1029,6 +1029,71 @@
       "url": "https://www.dataengineeringweekly.com/p/data-engineering-weekly-295",
       "title": "Data Engineering Weekly #295",
       "sent_at": "2026-11-10T11:45:47.222274+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/gia-tri-nvidia-boc-hoi-hon-400-ty-usd-vi-be-boi-cua-jensen-huang-5143178.html",
+      "title": "Giá trị Nvidia bốc hơi hơn 400 tỷ USD vì bê bối của Jensen Huang",
+      "sent_at": "2026-11-11T09:56:36.070005+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/gia-vang-the-gioi-giam-manh-ve-sat-4-000-usd-5143168.html",
+      "title": "Giá vàng thế giới giảm mạnh, về sát 4.000 USD",
+      "sent_at": "2026-11-11T09:56:36.070005+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/chay-showroom-xe-may-dien-o-trung-tam-hue-5143174.html",
+      "title": "Cháy showroom xe máy điện ở trung tâm Huế",
+      "sent_at": "2026-11-11T09:56:36.070005+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/cao-toc-tp-hcm-long-thanh-sau-hon-mot-nam-mo-rong-5142778.html",
+      "title": "Cao tốc TP HCM - Long Thành sau hơn một năm mở rộng",
+      "sent_at": "2026-11-11T09:56:36.070005+07:00"
+    },
+    {
+      "url": "https://huggingface.co/papers/2611.12885",
+      "title": "World In-Context Learning for Agentic Robot Manipulation",
+      "sent_at": "2026-11-11T09:56:36.070005+07:00"
+    },
+    {
+      "url": "https://huggingface.co/papers/2611.12955",
+      "title": "Predictive Surprise as Self-Grounding Concept Bottleneck for Interpretable Time Series",
+      "sent_at": "2026-11-11T09:56:36.070005+07:00"
+    },
+    {
+      "url": "https://codecut.ai/typesafe-jev-vs-rapidfuzz-sentence-transformers",
+      "title": "Matching product records with a decision model",
+      "sent_at": "2026-11-11T09:56:36.070005+07:00"
+    },
+    {
+      "url": "https://www.bloomberg.com/features/2026-sports-betting-debt-bankruptcy",
+      "title": "Tracing How Problem Betting Became Central to the Sportsbook Business",
+      "sent_at": "2026-11-11T09:56:36.070005+07:00"
+    },
+    {
+      "url": "https://blog.arpe.io/fastbcp-vs-duckdb-sql-server-to-parquet-benchmark",
+      "title": "Exporting 150M SQL Server rows to Parquet: reading the .bak beats the DB",
+      "sent_at": "2026-11-11T09:56:36.070005+07:00"
+    },
+    {
+      "url": "https://techcrunch.com/2026/11/09/hotel-giant-wyndham-exposed-customer-data-after-app-security-lapse",
+      "title": "Hotel giant Wyndham exposed customer data after app security lapse",
+      "sent_at": "2026-11-11T09:56:36.070005+07:00"
+    },
+    {
+      "url": "https://www.kdnuggets.com/2026/11/lansa/how-to-use-ai-for-enterprise-bi",
+      "title": "How to Use AI for Enterprise BI",
+      "sent_at": "2026-11-11T09:56:36.070005+07:00"
+    },
+    {
+      "url": "https://www.kdnuggets.com/integrating-llm-translation-into-your-scikit-learn-pipelines-with-scikit-llm",
+      "title": "Integrating LLM Translation into Your Scikit-Learn Pipelines with Scikit-LLM",
+      "sent_at": "2026-11-11T09:56:36.070005+07:00"
+    },
+    {
+      "url": "https://bozzetto.dev",
+      "title": "Bozzetto – reach consensus faster on engineering problems",
+      "sent_at": "2026-11-11T09:56:36.070005+07:00"
     }
   ]
 }
