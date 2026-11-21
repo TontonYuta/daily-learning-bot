@@ -1,46 +1,6 @@
 {
   "sent_papers": [
     {
-      "url": "https://huggingface.co/papers/2610.30926",
-      "title": "Making MLLM Latents Matter: Factor-Aware Predictive Learning for Cinematic Video Generation",
-      "sent_at": "2026-10-25T00:15:17.991180+07:00"
-    },
-    {
-      "url": "https://huggingface.co/papers/2610.30181",
-      "title": "Deep Search in Real-World Web Environments",
-      "sent_at": "2026-10-25T00:15:17.991180+07:00"
-    },
-    {
-      "url": "https://huggingface.co/papers/2610.30949",
-      "title": "IQuest-Q1: Advancing Foundation Capabilities for Agentic CLI Systems",
-      "sent_at": "2026-10-25T00:15:17.991180+07:00"
-    },
-    {
-      "url": "https://vnexpress.net/bigbang-co-the-mang-ve-hang-chuc-trieu-usd-loi-nhuan-cho-cong-ty-chu-quan-5136490.html",
-      "title": "BigBang có thể mang về hàng chục triệu USD lợi nhuận cho công ty chủ quản",
-      "sent_at": "2026-10-25T00:25:23.405856+07:00"
-    },
-    {
-      "url": "https://vnexpress.net/ong-trump-do-thue-mot-so-san-pham-canada-5136499.html",
-      "title": "Ông Trump dỡ thuế một số sản phẩm Canada",
-      "sent_at": "2026-10-25T00:25:23.405856+07:00"
-    },
-    {
-      "url": "https://vnexpress.net/cuc-hang-khong-yeu-cau-cac-hang-mo-them-duong-bay-noi-dia-5136485.html",
-      "title": "Cục Hàng không yêu cầu các hãng mở thêm đường bay nội địa",
-      "sent_at": "2026-10-25T00:25:23.405856+07:00"
-    },
-    {
-      "url": "https://vnexpress.net/nam-thanh-nien-song-sot-sau-khi-lan-xuong-vuc-sau-100-m-o-lung-cu-5136480.html",
-      "title": "Nam thanh niên sống sót sau khi lăn xuống vực sâu 100 m ở Lũng Cú",
-      "sent_at": "2026-10-25T00:25:23.405856+07:00"
-    },
-    {
-      "url": "https://huggingface.co/papers/2610.30043",
-      "title": "TARSphere: A Robot-Oriented Full-Stack Framework for Long-Horizon Embodied Agents in Evolving Physical and Social Environments",
-      "sent_at": "2026-10-25T00:25:23.405856+07:00"
-    },
-    {
       "url": "https://huggingface.co/papers/2610.22722",
       "title": "The LLM-Attacker: A Unified Red-Team Framework for Privacy Evaluation of Split and Distributed LLM Systems",
       "sent_at": "2026-10-25T00:25:23.405856+07:00"
@@ -1499,6 +1459,46 @@
       "url": "https://www.kdnuggets.com/one-table-many-engines-running-bigquery-spark-and-trino-on-a-single-iceberg-copy",
       "title": "One Table, Many Engines: Running BigQuery, Spark, and Trino on a Single Iceberg Copy",
       "sent_at": "2026-11-20T11:12:32.113902+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/gia-vang-moi-nhat-hom-nay-ngay-21-11-5147347.html",
+      "title": "Giá vàng miếng xuống mức thấp nhất 15 tháng",
+      "sent_at": "2026-11-21T11:12:30.855677+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/se-nghien-cuu-tinh-gia-dien-sinh-hoat-theo-khung-gio-5147315.html",
+      "title": "Sẽ nghiên cứu tính giá điện sinh hoạt theo khung giờ",
+      "sent_at": "2026-11-21T11:12:30.855677+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/kiem-soat-xe-chay-xang-dau-tai-vung-phat-thai-thap-5147337.html",
+      "title": "Kiểm soát xe chạy xăng, dầu tại vùng phát thải thấp",
+      "sent_at": "2026-11-21T11:12:30.855677+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/thi-diem-thu-hoi-tai-san-lien-quan-toi-pham-khong-qua-ket-toi-5147321.html",
+      "title": "Thí điểm thu hồi tài sản liên quan tội phạm không qua kết tội",
+      "sent_at": "2026-11-21T11:12:30.855677+07:00"
+    },
+    {
+      "url": "https://huggingface.co/papers/2611.26232",
+      "title": "Time Series Structure Learning with Local Causal Parent Discovery",
+      "sent_at": "2026-11-21T11:12:30.855677+07:00"
+    },
+    {
+      "url": "https://huggingface.co/papers/2611.26239",
+      "title": "Teaching Vision-Language-Action Models to Stop Safely",
+      "sent_at": "2026-11-21T11:12:30.855677+07:00"
+    },
+    {
+      "url": "https://www.kdnuggets.com/open-source-vs-proprietary-llms-a-decision-framework-for-2026",
+      "title": "Open Source vs. Proprietary LLMs: A Decision Framework for 2026",
+      "sent_at": "2026-11-21T11:12:30.855677+07:00"
+    },
+    {
+      "url": "https://www.kdnuggets.com/decision-ai-explained-in-5-minutes",
+      "title": "Decision AI Explained in 5 Minutes",
+      "sent_at": "2026-11-21T11:12:30.855677+07:00"
     }
   ]
 }
