@@ -1,56 +1,6 @@
 {
   "sent_papers": [
     {
-      "url": "https://huggingface.co/papers/2610.22722",
-      "title": "The LLM-Attacker: A Unified Red-Team Framework for Privacy Evaluation of Split and Distributed LLM Systems",
-      "sent_at": "2026-10-25T00:25:23.405856+07:00"
-    },
-    {
-      "url": "https://github.com/macorifice/yeti",
-      "title": "Yeti, an MCP server that guides product design from requirements to Jira",
-      "sent_at": "2026-10-25T00:25:23.405856+07:00"
-    },
-    {
-      "url": "https://aethyro.com",
-      "title": "Aethyro – AI chat SaaS, and a billing bypass I found by attacking my own product",
-      "sent_at": "2026-10-25T00:25:23.405856+07:00"
-    },
-    {
-      "url": "https://mydbanotebook.org/posts/region-a-lesson-in-data-integrity",
-      "title": "Region: A Lesson in Data Integrity",
-      "sent_at": "2026-10-25T00:25:23.405856+07:00"
-    },
-    {
-      "url": "https://www.takingstock.ai/#energy",
-      "title": "Data centres could use 15-20% of current US demand by 2030",
-      "sent_at": "2026-10-25T00:25:23.405856+07:00"
-    },
-    {
-      "url": "https://www.kdnuggets.com/what-companies-actually-mean-when-they-say-they-want-ai-experience",
-      "title": "What Companies Actually Mean When They Say They Want “AI Experience”",
-      "sent_at": "2026-10-25T00:25:23.405856+07:00"
-    },
-    {
-      "url": "https://www.kdnuggets.com/5-free-ai-coding-agents-you-should-try-in-2026",
-      "title": "5 Free AI Coding Agents You Should Try in 2026",
-      "sent_at": "2026-10-25T00:25:23.405856+07:00"
-    },
-    {
-      "url": "https://www.dataengineeringweekly.com/p/data-engineering-weekly-292",
-      "title": "Data Engineering Weekly #292",
-      "sent_at": "2026-10-25T00:25:23.405856+07:00"
-    },
-    {
-      "url": "https://www.dataengineeringweekly.com/p/the-self-organizing-data-stack",
-      "title": "The Self-Organizing Data Stack",
-      "sent_at": "2026-10-25T00:25:23.405856+07:00"
-    },
-    {
-      "url": "https://huggingface.co/papers/2610.04184",
-      "title": "EvalResearchBench: Can AI Agents Build Their Own Feedback for Recursive Self-Improvement?",
-      "sent_at": "2026-10-25T00:33:56.875848+07:00"
-    },
-    {
       "url": "https://techcrunch.com/2026/10/24/blocks-new-voice-model-sounds-eerily-human",
       "title": "Block’s new voice model sounds eerily human",
       "sent_at": "2026-10-25T00:33:56.875848+07:00"
@@ -1499,6 +1449,56 @@
       "url": "https://www.kdnuggets.com/decision-ai-explained-in-5-minutes",
       "title": "Decision AI Explained in 5 Minutes",
       "sent_at": "2026-11-21T11:12:30.855677+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/dau-tay-trung-quoc-co-mau-vuot-nguong-thuoc-bao-ve-thuc-vat-gan-6-lan-5147587.html",
+      "title": "Dâu tây Trung Quốc có mẫu vượt ngưỡng thuốc bảo vệ thực vật gần 6 lần",
+      "sent_at": "2026-11-22T10:23:29.125676+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/dac-san-ruoi-hai-phong-re-chua-tung-co-5146581.html",
+      "title": "Đặc sản rươi Hải Phòng 'rẻ chưa từng có'",
+      "sent_at": "2026-11-22T10:23:29.125676+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/muc-phat-vi-pham-moi-truong-cao-nhat-den-2-ty-dong-5146979.html",
+      "title": "Mức phạt vi phạm môi trường cao nhất đến 2 tỷ đồng",
+      "sent_at": "2026-11-22T10:23:29.125676+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/lam-dong-quy-hoach-trung-tam-hanh-chinh-moi-o-duc-trong-5147487.html",
+      "title": "Lâm Đồng quy hoạch trung tâm hành chính mới ở Đức Trọng",
+      "sent_at": "2026-11-22T10:23:29.125676+07:00"
+    },
+    {
+      "url": "https://huggingface.co/papers/2611.25604",
+      "title": "PAD: Policy-Aware Data Valuation for Autonomous Driving",
+      "sent_at": "2026-11-22T10:23:29.125676+07:00"
+    },
+    {
+      "url": "https://techcrunch.com/2026/11/21/signal-restricts-mobile-screenshots-as-it-confronts-existential-threat-of-ai-surveillance",
+      "title": "Signal restricts mobile screenshots as it confronts ‘existential threat’ of AI surveillance",
+      "sent_at": "2026-11-22T10:23:29.125676+07:00"
+    },
+    {
+      "url": "https://www.wsj.com/business/p-g-to-cut-up-to-30-of-product-supply-workers-amid-automation-push-8ca24808",
+      "title": "P&G to Cut Up to 30% of Product-Supply Workers Amid Automation Push",
+      "sent_at": "2026-11-22T10:23:29.125676+07:00"
+    },
+    {
+      "url": "https://github.com/AryamanSi17/synthetic-consumer-research",
+      "title": "Show HN: Test product ideas on synthetic customers (open-source SSR skill)",
+      "sent_at": "2026-11-22T10:23:29.125676+07:00"
+    },
+    {
+      "url": "https://openrouter.ai/blog/announcements/data-processing-incidents-on-inference-providers",
+      "title": "Data Processing Incidents on Inference Providers",
+      "sent_at": "2026-11-22T10:23:29.125676+07:00"
+    },
+    {
+      "url": "https://sahm-terminal.vercel.app",
+      "title": "Why raw prices lie: adjusting Casablanca Stock Exchange data for stock splits",
+      "sent_at": "2026-11-22T10:23:29.125676+07:00"
     }
   ]
 }
