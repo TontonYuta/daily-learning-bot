@@ -1,66 +1,6 @@
 {
   "sent_papers": [
     {
-      "url": "https://techcrunch.com/2026/10/24/blocks-new-voice-model-sounds-eerily-human",
-      "title": "Block’s new voice model sounds eerily human",
-      "sent_at": "2026-10-25T00:33:56.875848+07:00"
-    },
-    {
-      "url": "https://techcrunch.com/2026/10/24/forced-to-pick-groks-ai-model-chooses-republicans-openais-picks-democrats",
-      "title": "Forced to pick, Grok’s AI model chooses Republicans. OpenAI’s picks Democrats.",
-      "sent_at": "2026-10-25T00:34:54.861429+07:00"
-    },
-    {
-      "url": "https://techcrunch.com/2026/10/24/all-the-ai-agents-that-can-live-in-your-text-messages",
-      "title": "Here are the top AI agents that can live in your text messages",
-      "sent_at": "2026-10-25T00:34:54.861429+07:00"
-    },
-    {
-      "url": "https://vnexpress.net/chu-hang-vodka-ha-noi-lai-ky-luc-tu-khi-len-san-5136341.html",
-      "title": "Chủ hãng vodka Hà Nội lãi kỷ lục từ khi lên sàn",
-      "sent_at": "2026-10-25T00:42:34.294128+07:00"
-    },
-    {
-      "url": "https://www.theguardian.com/us-news/2026/oct/23/susan-collins-maine-trump-tariffs-canada",
-      "title": "Trump drops some Canada tariffs in bid to boost embattled Susan Collins in Maine",
-      "sent_at": "2026-10-25T00:42:34.294128+07:00"
-    },
-    {
-      "url": "https://vnexpress.net/trau-huc-6-nguoi-bi-thuong-o-lam-dong-5136481.html",
-      "title": "Trâu húc 6 người bị thương ở Lâm Đồng",
-      "sent_at": "2026-10-25T00:42:34.294128+07:00"
-    },
-    {
-      "url": "https://www.theguardian.com/world/2026/oct/23/ebola-swiss-patient-nigeria-dr-congo-concerns-virus-spread",
-      "title": "Mystery over source of Ebola infection in Nigeria fuels concern about spread of virus",
-      "sent_at": "2026-10-25T00:42:34.294128+07:00"
-    },
-    {
-      "url": "https://www.kdnuggets.com/how-to-process-large-json-files-in-python-with-ijson",
-      "title": "How to Process Large JSON Files in Python With ijson",
-      "sent_at": "2026-10-25T00:42:34.294128+07:00"
-    },
-    {
-      "url": "https://www.dataengineeringweekly.com/p/data-engineering-weekly-291",
-      "title": "Data Engineering Weekly #291",
-      "sent_at": "2026-10-25T00:42:34.294128+07:00"
-    },
-    {
-      "url": "https://vnexpress.net/ong-trump-go-bo-thue-mot-so-san-pham-cua-canada-5136499.html",
-      "title": "Ông Trump gỡ bỏ thuế một số sản phẩm của Canada",
-      "sent_at": "2026-10-25T08:29:07.158018+07:00"
-    },
-    {
-      "url": "https://www.theguardian.com/business/2026/oct/23/oil-five-month-high-fears-us-renews-strikes-iran",
-      "title": "Oil price rises above $117 a barrel amid fears US will renew strikes on Iran",
-      "sent_at": "2026-10-25T08:29:07.158018+07:00"
-    },
-    {
-      "url": "https://vnexpress.net/bao-tang-cua-nhung-cuu-tu-phu-quoc-o-thu-do-5135197.html",
-      "title": "Bảo tàng của những cựu tù Phú Quốc ở Thủ đô",
-      "sent_at": "2026-10-25T08:29:07.158018+07:00"
-    },
-    {
       "url": "https://vnexpress.net/ha-noi-khong-dong-loat-thay-the-cay-chua-phu-hop-5136501.html",
       "title": "Hà Nội không đồng loạt thay thế cây chưa phù hợp",
       "sent_at": "2026-10-25T08:29:07.158018+07:00"
@@ -1499,6 +1439,66 @@
       "url": "https://sahm-terminal.vercel.app",
       "title": "Why raw prices lie: adjusting Casablanca Stock Exchange data for stock splits",
       "sent_at": "2026-11-22T10:23:29.125676+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/moi-luong-vang-mieng-tang-1-5-trieu-dong-5147827.html",
+      "title": "Mỗi lượng vàng miếng tăng 1,5 triệu đồng",
+      "sent_at": "2026-11-23T10:55:05.797042+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/dam-phan-khi-hau-cop31-that-bai-5147753.html",
+      "title": "Đàm phán khí hậu COP31 thất bại",
+      "sent_at": "2026-11-23T10:55:05.797042+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/kinh-te-bac-co-hoi-tu-16-5-trieu-nguoi-cao-tuoi-5147144.html",
+      "title": "Kinh tế bạc - cơ hội từ 16,5 triệu người cao tuổi",
+      "sent_at": "2026-11-23T10:55:05.797042+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/chay-nha-4-tang-o-tp-hcm-5147797.html",
+      "title": "Cháy nhà 4 tầng ở TP HCM",
+      "sent_at": "2026-11-23T10:55:05.797042+07:00"
+    },
+    {
+      "url": "https://huggingface.co/papers/2611.24636",
+      "title": "Clover-35B-A3B-Preview Technical Report",
+      "sent_at": "2026-11-23T10:55:05.797042+07:00"
+    },
+    {
+      "url": "https://huggingface.co/papers/2611.27229",
+      "title": "Prune to Expand: Training Prompt Enhancers with Less to Imitate",
+      "sent_at": "2026-11-23T10:55:05.797042+07:00"
+    },
+    {
+      "url": "https://just-dashboard.com",
+      "title": "Show HN: Just Dashboard, open-source Linux management dashboard",
+      "sent_at": "2026-11-23T10:55:05.797042+07:00"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=r3b5VowdjmU",
+      "title": "How to Make Your Own Physical Product from Zero [video]",
+      "sent_at": "2026-11-23T10:55:05.797042+07:00"
+    },
+    {
+      "url": "https://www.bleepingcomputer.com/news/security/cleverbridge-warns-hackers-stole-credit-card-numbers-cvvs-in-data-breach",
+      "title": "Cleverbridge warns hackers stole credit card numbers, CVVs in data breach",
+      "sent_at": "2026-11-23T10:55:05.797042+07:00"
+    },
+    {
+      "url": "https://github.com/patpat9/dropics",
+      "title": "DropICS – Drag-and-drop .ics/.csv into Google Calendar (no data sent)",
+      "sent_at": "2026-11-23T10:55:05.797042+07:00"
+    },
+    {
+      "url": "https://boardgamesintro.com/posts/board-game-learning-path-beginner-to-expert",
+      "title": "Board Game Learning Path",
+      "sent_at": "2026-11-23T10:55:05.797042+07:00"
+    },
+    {
+      "url": "https://www.dataengineeringweekly.com/p/data-engineering-weekly-297",
+      "title": "Data Engineering Weekly #297",
+      "sent_at": "2026-11-23T10:55:05.797042+07:00"
     }
   ]
 }
