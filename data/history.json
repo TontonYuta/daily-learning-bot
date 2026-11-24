@@ -1,46 +1,6 @@
 {
   "sent_papers": [
     {
-      "url": "https://vnexpress.net/ha-noi-khong-dong-loat-thay-the-cay-chua-phu-hop-5136501.html",
-      "title": "Hà Nội không đồng loạt thay thế cây chưa phù hợp",
-      "sent_at": "2026-10-25T08:29:07.158018+07:00"
-    },
-    {
-      "url": "https://techcrunch.com/2026/10/24/the-ai-graveyard-a-running-list-of-projects-and-startups-that-didnt-make-it",
-      "title": "The AI graveyard: a running list of projects and startups that didn’t make it",
-      "sent_at": "2026-10-25T08:29:07.158018+07:00"
-    },
-    {
-      "url": "https://vnexpress.net/ly-do-tp-hcm-tang-nhanh-tren-xep-hang-trung-tam-tai-chinh-5129028.html",
-      "title": "Lý do TP HCM tăng nhanh trên xếp hạng trung tâm tài chính",
-      "sent_at": "2026-10-26T08:32:20.408001+07:00"
-    },
-    {
-      "url": "https://vnexpress.net/ban-le-phap-dieu-dung-trong-lan-song-bat-on-5136638.html",
-      "title": "Bán lẻ Pháp điêu đứng trong làn sóng bất ổn",
-      "sent_at": "2026-10-26T08:32:20.408001+07:00"
-    },
-    {
-      "url": "https://vnexpress.net/dai-bieu-quoc-hoi-can-xu-ly-nguon-phat-tan-phim-doc-hai-5136335.html",
-      "title": "Đại biểu Quốc hội: Cần xử lý nguồn phát tán phim độc hại",
-      "sent_at": "2026-10-26T08:32:20.408001+07:00"
-    },
-    {
-      "url": "https://vnexpress.net/hinh-hai-trung-tam-hoi-nghi-va-nha-bieu-dien-apec-2027-5136496.html",
-      "title": "Hình hài Trung tâm Hội nghị và Nhà biểu diễn APEC 2027",
-      "sent_at": "2026-10-26T08:32:20.408001+07:00"
-    },
-    {
-      "url": "https://techcrunch.com/2026/10/25/grok-releases-the-first-seven-minutes-of-its-ai-generated-odyssey",
-      "title": "Grok releases the first seven minutes of its AI-generated ‘Odyssey’",
-      "sent_at": "2026-10-26T08:32:20.408001+07:00"
-    },
-    {
-      "url": "https://techcrunch.com/2026/10/25/ai-delivers-zero-financial-payoff-to-most-companies-according-to-apollo-economist",
-      "title": "AI delivers ‘zero financial payoff’ to most companies, Apollo economist says",
-      "sent_at": "2026-10-26T08:32:20.408001+07:00"
-    },
-    {
       "url": "https://vnexpress.net/vi-sao-tp-hcm-can-thu-hut-dong-von-the-he-moi-5137106.html",
       "title": "Vì sao TP HCM cần thu hút dòng vốn thế hệ mới?",
       "sent_at": "2026-10-27T09:21:39.087273+07:00"
@@ -1499,6 +1459,46 @@
       "url": "https://www.dataengineeringweekly.com/p/data-engineering-weekly-297",
       "title": "Data Engineering Weekly #297",
       "sent_at": "2026-11-23T10:55:05.797042+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/chung-khoan-chau-a-tang-vot-khi-jensen-huang-tro-lai-nvidia-5148343.html",
+      "title": "Chứng khoán châu Á tăng vọt khi Jensen Huang trở lại Nvidia",
+      "sent_at": "2026-11-24T14:02:34.024352+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/sai-lam-tri-gia-1-500-ty-usd-cua-hdqt-nvidia-gop-phan-dua-jensen-huang-tro-lai-5148316.html",
+      "title": "'Sai lầm trị giá 1.500 tỷ USD' của HĐQT Nvidia góp phần đưa Jensen Huang trở lại",
+      "sent_at": "2026-11-24T14:02:34.024352+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/xe-tai-tong-oto-4-cho-bien-dang-mot-nguoi-chet-5148372.html",
+      "title": "Xe tải tông ôtô 4 chỗ biến dạng, một người chết",
+      "sent_at": "2026-11-24T14:02:34.024352+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/day-nha-do-nat-sau-vu-no-o-khu-tap-the-ha-noi-5148321.html",
+      "title": "Dãy nhà đổ nát sau vụ nổ ở khu tập thể Hà Nội",
+      "sent_at": "2026-11-24T14:02:34.024352+07:00"
+    },
+    {
+      "url": "https://huggingface.co/papers/2611.30207",
+      "title": "What Makes Good Data for Training Coding Agents? A Systematic Study on SWE-Gym",
+      "sent_at": "2026-11-24T14:02:34.024352+07:00"
+    },
+    {
+      "url": "https://huggingface.co/papers/2611.30813",
+      "title": "HIVE-Bench: Evaluating Patch-Level Visual Representations for Egocentric Robot Manipulation",
+      "sent_at": "2026-11-24T14:02:34.024352+07:00"
+    },
+    {
+      "url": "https://www.kdnuggets.com/how-to-use-ai-tools-to-learn-data-science-faster-in-2026",
+      "title": "How to Use AI Tools to Learn Data Science Faster in 2026",
+      "sent_at": "2026-11-24T14:02:34.024352+07:00"
+    },
+    {
+      "url": "https://www.kdnuggets.com/5-lightweight-alternatives-to-mcp-for-giving-ai-agents-tools",
+      "title": "5 Lightweight Alternatives to MCP for Giving AI Agents Tools",
+      "sent_at": "2026-11-24T14:02:34.024352+07:00"
     }
   ]
 }
