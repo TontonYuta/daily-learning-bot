@@ -1,66 +1,6 @@
 {
   "sent_papers": [
     {
-      "url": "https://vnexpress.net/vi-sao-tp-hcm-can-thu-hut-dong-von-the-he-moi-5137106.html",
-      "title": "Vì sao TP HCM cần thu hút dòng vốn thế hệ mới?",
-      "sent_at": "2026-10-27T09:21:39.087273+07:00"
-    },
-    {
-      "url": "https://vnexpress.net/thit-heo-viet-dat-hon-hang-nhap-khau-5135548.html",
-      "title": "Thịt heo Việt đắt hơn hàng nhập khẩu",
-      "sent_at": "2026-10-27T09:21:39.087273+07:00"
-    },
-    {
-      "url": "https://vnexpress.net/giam-doc-benh-vien-nhi-tu-giam-tuoi-hien-mo-tang-phai-dat-quyen-loi-cua-tre-len-truoc-5137148.html",
-      "title": "Giám đốc Bệnh viện Nhi TƯ: Giảm tuổi hiến mô, tạng phải đặt quyền lợi của trẻ lên trước",
-      "sent_at": "2026-10-27T09:21:39.087273+07:00"
-    },
-    {
-      "url": "https://vnexpress.net/tha-rua-nui-vang-va-tran-gam-ve-tu-nhien-o-cu-lao-cham-5137159.html",
-      "title": "Thả rùa núi vàng và trăn gấm về tự nhiên ở Cù Lao Chàm",
-      "sent_at": "2026-10-27T09:21:39.087273+07:00"
-    },
-    {
-      "url": "https://huggingface.co/papers/2610.33966",
-      "title": "InteractiveWorld: A Verifiable Human-Centric Environment for Building Better Interactive MLLM Assistants",
-      "sent_at": "2026-10-27T09:21:39.087273+07:00"
-    },
-    {
-      "url": "https://huggingface.co/papers/2610.32195",
-      "title": "Principia: Test-Time Hypotheses to Principle Construction for Scientific Discovery",
-      "sent_at": "2026-10-27T09:21:39.087273+07:00"
-    },
-    {
-      "url": "https://www.kdnuggets.com/the-roadmap-to-becoming-a-computer-vision-engineer-in-2026",
-      "title": "The Roadmap to Becoming a Computer Vision Engineer in 2026",
-      "sent_at": "2026-10-27T09:21:39.087273+07:00"
-    },
-    {
-      "url": "https://www.kdnuggets.com/building-your-first-ai-agent-in-python-with-the-openai-agents-sdk",
-      "title": "Building Your First AI Agent in Python with the OpenAI Agents SDK",
-      "sent_at": "2026-10-27T09:21:39.087273+07:00"
-    },
-    {
-      "url": "https://www.dataengineeringweekly.com/p/data-engineering-weekly-293",
-      "title": "Data Engineering Weekly #293",
-      "sent_at": "2026-10-27T09:21:39.087273+07:00"
-    },
-    {
-      "url": "https://www.youtube.com/watch?v=hJSbro3EBnY",
-      "title": "Engineering Explained: I Fact-Checked Every Stunt in the Tesla Roadster Reveal [video]",
-      "sent_at": "2026-10-27T09:21:39.087273+07:00"
-    },
-    {
-      "url": "https://vnexpress.net/vi-sao-cac-dai-gia-cong-nghe-lien-tuc-sa-thai-nhan-su-5137516.html",
-      "title": "Vì sao các đại gia công nghệ liên tục sa thải nhân sự?",
-      "sent_at": "2026-10-28T09:32:26.116085+07:00"
-    },
-    {
-      "url": "https://vnexpress.net/cach-cay-xanh-giup-thanh-pho-mat-hon-5-do-c-5137604.html",
-      "title": "Cách cây xanh giúp thành phố mát hơn 5 độ C",
-      "sent_at": "2026-10-28T09:32:26.116085+07:00"
-    },
-    {
       "url": "https://vnexpress.net/tau-ca-boc-chay-khi-vua-xuat-ben-o-lam-dong-5137662.html",
       "title": "Tàu cá bốc cháy khi vừa xuất bến ở Lâm Đồng",
       "sent_at": "2026-10-28T09:32:26.116085+07:00"
@@ -1499,6 +1439,66 @@
       "url": "https://www.kdnuggets.com/5-lightweight-alternatives-to-mcp-for-giving-ai-agents-tools",
       "title": "5 Lightweight Alternatives to MCP for Giving AI Agents Tools",
       "sent_at": "2026-11-24T14:02:34.024352+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/pnj-ha-gia-vang-nhan-tron-xuong-thap-hon-nhieu-thuong-hieu-lon-5148658.html",
+      "title": "PNJ hạ giá vàng nhẫn trơn xuống thấp hơn nhiều thương hiệu lớn",
+      "sent_at": "2026-11-25T12:37:38.668745+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/quyen-luc-cua-petrodollar-lieu-co-bi-xoi-mon-5148123.html",
+      "title": "Quyền lực của 'petrodollar' liệu có bị xói mòn?",
+      "sent_at": "2026-11-25T12:37:38.668745+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/du-kien-khoi-cong-duong-sat-toc-do-cao-bac-nam-cuoi-nam-2028-5148586.html",
+      "title": "Dự kiến khởi công đường sắt tốc độ cao Bắc Nam cuối năm 2028",
+      "sent_at": "2026-11-25T12:37:38.668745+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/pho-phap-chu-giao-hoi-phat-giao-viet-nam-thich-duc-nghiep-vien-tich-5148571.html",
+      "title": "Phó pháp chủ Giáo hội Phật giáo Việt Nam Thích Đức Nghiệp viên tịch",
+      "sent_at": "2026-11-25T12:37:38.668745+07:00"
+    },
+    {
+      "url": "https://huggingface.co/papers/2611.32820",
+      "title": "Residual Guidance for Real-Time Interactive Video Generation",
+      "sent_at": "2026-11-25T12:37:38.668745+07:00"
+    },
+    {
+      "url": "https://huggingface.co/papers/2611.31766",
+      "title": "RoMo Hands: A Large Scale Richly Organized Text to Hand Motion Dataset",
+      "sent_at": "2026-11-25T12:37:38.668745+07:00"
+    },
+    {
+      "url": "https://blog.quarkslab.com/bypassing-android-hardware-attestation.html",
+      "title": "Bypassing Android Hardware Attestation from the Analyst's Chair",
+      "sent_at": "2026-11-25T12:37:38.668745+07:00"
+    },
+    {
+      "url": "https://www.nationalreview.com/article/the-limits-of-the-great-man-theory-of-business",
+      "title": "The Limits of the Great Man Theory of Business",
+      "sent_at": "2026-11-25T12:37:38.668745+07:00"
+    },
+    {
+      "url": "https://www.kdnuggets.com/how-to-run-inkling-2-mini-locally-on-an-rtx-3090-using-unsloth-studio",
+      "title": "How to Run Inkling 2 Mini Locally on an RTX 3090 Using Unsloth Studio",
+      "sent_at": "2026-11-25T12:37:38.668745+07:00"
+    },
+    {
+      "url": "https://www.kdnuggets.com/from-messy-to-clean-taming-real-world-csv-files-with-pandas-read_csv",
+      "title": "From Messy to Clean: Taming Real-World CSV Files with pandas read_csv()",
+      "sent_at": "2026-11-25T12:37:38.668745+07:00"
+    },
+    {
+      "url": "https://autoriteitpersoonsgegevens.nl/en/current/ap-advises-against-purchasing-ai-camera-glasses-serious-risks-for-users-and-bystanders",
+      "title": "Dutch data protection authority advises against purchasing AI camera glasses",
+      "sent_at": "2026-11-25T12:37:38.668745+07:00"
+    },
+    {
+      "url": "https://www.nature.com/articles/s41893-026-01985-7?trk=article-ssr-frontend-pulse_little-text-block",
+      "title": "Assessing carbon emissions and energy consumption of US hyperscale data centres",
+      "sent_at": "2026-11-25T12:37:38.668745+07:00"
     }
   ]
 }
