@@ -1,56 +1,6 @@
 {
   "sent_papers": [
     {
-      "url": "https://vnexpress.net/tau-ca-boc-chay-khi-vua-xuat-ben-o-lam-dong-5137662.html",
-      "title": "Tàu cá bốc cháy khi vừa xuất bến ở Lâm Đồng",
-      "sent_at": "2026-10-28T09:32:26.116085+07:00"
-    },
-    {
-      "url": "https://vnexpress.net/de-xuat-lan-uu-tien-xe-buyt-ket-noi-tp-hcm-san-bay-long-thanh-5137601.html",
-      "title": "Đề xuất làn ưu tiên xe buýt kết nối TP HCM - sân bay Long Thành",
-      "sent_at": "2026-10-28T09:32:26.116085+07:00"
-    },
-    {
-      "url": "https://huggingface.co/papers/2610.24520",
-      "title": "HABIT-Bench: Evaluating Habit Induction from Longitudinal Weak Evidence in Agent Memory",
-      "sent_at": "2026-10-28T09:32:26.116085+07:00"
-    },
-    {
-      "url": "https://huggingface.co/papers/2610.32046",
-      "title": "Can Test-Time Memory Evolution Outperform Test-Time Training for Scientific Discovery?",
-      "sent_at": "2026-10-28T09:32:26.116085+07:00"
-    },
-    {
-      "url": "https://www.kdnuggets.com/google-gemini-omni-what-it-actually-does-what-it-costs-and-how-it-compares",
-      "title": "Google Gemini Omni: What It Actually Does, What It Costs, and How It Compares",
-      "sent_at": "2026-10-28T09:32:26.116085+07:00"
-    },
-    {
-      "url": "https://vnexpress.net/bat-ngo-bi-khoa-tai-khoan-ngan-hang-do-giao-dich-tien-so-5138010.html",
-      "title": "Bất ngờ bị khóa tài khoản ngân hàng do giao dịch tiền số",
-      "sent_at": "2026-10-29T09:47:35.442429+07:00"
-    },
-    {
-      "url": "https://vnexpress.net/fed-giu-nguyen-lai-suat-5138091.html",
-      "title": "Fed giữ nguyên lãi suất",
-      "sent_at": "2026-10-29T09:47:35.442429+07:00"
-    },
-    {
-      "url": "https://vnexpress.net/nu-sinh-lop-8-tu-vong-do-an-nham-la-ngon-5138124.html",
-      "title": "Nữ sinh lớp 8 tử vong do ăn nhầm lá ngón",
-      "sent_at": "2026-10-29T09:47:35.442429+07:00"
-    },
-    {
-      "url": "https://vnexpress.net/thiet-ke-nut-giao-nhieu-tang-noi-ba-duong-huyet-mach-phia-dong-tp-hcm-5137806.html",
-      "title": "Thiết kế nút giao nhiều tầng nối ba đường huyết mạch phía đông TP HCM",
-      "sent_at": "2026-10-29T09:47:35.442429+07:00"
-    },
-    {
-      "url": "https://huggingface.co/papers/2610.35201",
-      "title": "DTCA: Denoising Token Credit Assignment for Reinforcement Learning in Diffusion Language Models",
-      "sent_at": "2026-10-29T09:47:35.442429+07:00"
-    },
-    {
       "url": "https://huggingface.co/papers/2610.33245",
       "title": "AdaPRA: Process Reward Agents with Adaptive Rubrics for Data Science",
       "sent_at": "2026-10-29T09:47:35.442429+07:00"
@@ -1499,6 +1449,56 @@
       "url": "https://www.nature.com/articles/s41893-026-01985-7?trk=article-ssr-frontend-pulse_little-text-block",
       "title": "Assessing carbon emissions and energy consumption of US hyperscale data centres",
       "sent_at": "2026-11-25T12:37:38.668745+07:00"
+    },
+    {
+      "url": "https://cafef.vn/mot-nguoi-mat-30-nam-tu-dung-the-gioi-bang-tay-nay-noi-nay-duoc-rot-gan-130-ty-dong-de-hoi-sinh-188261126111005931.chn",
+      "title": "Một người mất 30 năm tự dựng \"thế giới\" bằng tay, nay nơi này được rót gần 130 tỷ đồng để hồi sinh",
+      "sent_at": "2026-11-26T12:23:10.911713+07:00"
+    },
+    {
+      "url": "https://cafef.vn/chi-tiet-muc-thue-quan-moi-my-de-xuat-ap-len-cac-doi-tac-thuong-mai-188261126111753489.chn",
+      "title": "Chi tiết mức thuế quan mới Mỹ đề xuất áp lên các đối tác thương mại",
+      "sent_at": "2026-11-26T12:23:10.911713+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/khong-khi-lanh-tang-cuong-mien-trung-tiep-tuc-mua-lon-5149078.html",
+      "title": "Không khí lạnh tăng cường, miền Trung tiếp tục mưa lớn",
+      "sent_at": "2026-11-26T12:23:10.911713+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/truc-thang-uav-hop-luyen-truoc-trien-lam-quoc-phong-5149054.html",
+      "title": "Trực thăng, UAV hợp luyện trước triển lãm quốc phòng",
+      "sent_at": "2026-11-26T12:23:10.911713+07:00"
+    },
+    {
+      "url": "https://huggingface.co/papers/2611.34347",
+      "title": "AIRIS: Benchmarking Social Embodied Intelligence in Egocentric Streaming Videos",
+      "sent_at": "2026-11-26T12:23:10.911713+07:00"
+    },
+    {
+      "url": "https://huggingface.co/papers/2611.34941",
+      "title": "Improving and Expanding Video Editing Capabilities Without Videos",
+      "sent_at": "2026-11-26T12:23:10.911713+07:00"
+    },
+    {
+      "url": "https://www.bloomberg.com/news/articles/2026-11-25/billions-in-data-center-deals-grind-to-halt-after-ai-chip-curbs",
+      "title": "Billions in Data Center Deals Grind to Halt After Chip Curbs",
+      "sent_at": "2026-11-26T12:23:10.911713+07:00"
+    },
+    {
+      "url": "https://www.bbc.co.uk/news/articles/cwp836l8n1jgo",
+      "title": "US approves SpaceX plan to send a million data satellites to space",
+      "sent_at": "2026-11-26T12:23:10.911713+07:00"
+    },
+    {
+      "url": "https://www.kdnuggets.com/2026/11/vibe-coding-for-business-analytics-custom-crm-dashboards-reporting-apps-and-ai-agents",
+      "title": "Vibe Coding for Business Analytics: Custom CRM Dashboards, Reporting Apps, and AI Agents",
+      "sent_at": "2026-11-26T12:23:10.911713+07:00"
+    },
+    {
+      "url": "https://www.kdnuggets.com/why-data-job-candidates-freeze-on-questions-they-already-know",
+      "title": "Why Data Job Candidates Freeze on Questions They Already Know",
+      "sent_at": "2026-11-26T12:23:10.911713+07:00"
     }
   ]
 }
