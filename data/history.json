@@ -1,46 +1,6 @@
 {
   "sent_papers": [
     {
-      "url": "https://huggingface.co/papers/2610.33245",
-      "title": "AdaPRA: Process Reward Agents with Adaptive Rubrics for Data Science",
-      "sent_at": "2026-10-29T09:47:35.442429+07:00"
-    },
-    {
-      "url": "https://claudewill.io/being-claude/customer-a",
-      "title": "Customer A: Reading Anthropic's IPO filing from inside the product",
-      "sent_at": "2026-10-29T09:47:35.442429+07:00"
-    },
-    {
-      "url": "https://42loop.com/about",
-      "title": "Show HN: 42Loop - Agent runs the product, I assist it",
-      "sent_at": "2026-10-29T09:47:35.442429+07:00"
-    },
-    {
-      "url": "https://www.theverge.com/ai-artificial-intelligence/1018676/data-center-midterm-election-energy-water-texas",
-      "title": "Voters in Texas agree: They hate data centers",
-      "sent_at": "2026-10-29T09:47:35.442429+07:00"
-    },
-    {
-      "url": "https://www.brentozar.com/archive/2026/10/fact-checking-microsofts-postgresql-to-sql-field-notes-connections",
-      "title": "Fact-Checking Microsoft's \"PostgreSQL to SQL Field Notes: Connections\"",
-      "sent_at": "2026-10-29T09:47:35.442429+07:00"
-    },
-    {
-      "url": "https://www.kdnuggets.com/access-multiple-ai-models-in-your-python-apps-using-openrouter",
-      "title": "Access Multiple AI Models in Your Python Apps Using OpenRouter",
-      "sent_at": "2026-10-29T09:47:35.442429+07:00"
-    },
-    {
-      "url": "https://www.kdnuggets.com/can-this-open-source-model-beat-ai-detectors-lets-test-it-locally",
-      "title": "Can This Open-Source Model Beat AI Detectors? Let’s Test It Locally",
-      "sent_at": "2026-10-29T09:47:35.442429+07:00"
-    },
-    {
-      "url": "https://www.dataengineeringweekly.com/p/do-we-still-need-data-models",
-      "title": "Do We Still Need Data Models?",
-      "sent_at": "2026-10-29T09:47:35.442429+07:00"
-    },
-    {
       "url": "https://fleetbridge.run/continuous-engineering",
       "title": "Continuous Engineering: Automating almost everything, but what do humans do?",
       "sent_at": "2026-10-29T09:47:35.442429+07:00"
@@ -1499,6 +1459,46 @@
       "url": "https://www.kdnuggets.com/why-data-job-candidates-freeze-on-questions-they-already-know",
       "title": "Why Data Job Candidates Freeze on Questions They Already Know",
       "sent_at": "2026-11-26T12:23:10.911713+07:00"
+    },
+    {
+      "url": "https://cafef.vn/my-chi-154-ty-usd-dong-loat-tau-san-bay-uy-luc-moi-hay-nhung-tam-bia-dat-do-188261127120724966.chn",
+      "title": "Mỹ chi 154 tỷ USD đóng loạt tàu sân bay: Uy lực mới hay 'những tấm bia' đắt đỏ?",
+      "sent_at": "2026-11-27T12:16:47.200034+07:00"
+    },
+    {
+      "url": "https://cafef.vn/khoan-tham-do-xuong-1400-m-phat-hien-mo-dau-24-trieu-thung-trong-tang-chua-dau-khi-day-65-m-chi-cach-dat-lien-145-km-188261127110341991.chn",
+      "title": "Khoan thăm dò xuống 1.400 m, phát hiện mỏ dầu 24 triệu thùng trong tầng chứa dầu khí dày 65 m, chỉ cách đất liền 145 km",
+      "sent_at": "2026-11-27T12:16:47.200034+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/nuoc-ho-tren-mieng-nui-lua-tran-xuong-khu-dan-cu-ly-son-5149513.html",
+      "title": "Nước hồ trên miệng núi lửa tràn xuống khu dân cư Lý Sơn",
+      "sent_at": "2026-11-27T12:16:47.200034+07:00"
+    },
+    {
+      "url": "https://vnexpress.net/tay-ninh-khoi-cong-duong-hon-9-300-ty-dong-noi-vung-dong-thap-muoi-5149469.html",
+      "title": "Tây Ninh khởi công đường hơn 9.300 tỷ đồng nối vùng Đồng Tháp Mười",
+      "sent_at": "2026-11-27T12:16:47.200034+07:00"
+    },
+    {
+      "url": "https://huggingface.co/papers/2611.32238",
+      "title": "Boundary-Aware Policy Learning for Agent-Orchestrated Robot Manipulation",
+      "sent_at": "2026-11-27T12:16:47.200034+07:00"
+    },
+    {
+      "url": "https://huggingface.co/papers/2611.34719",
+      "title": "Reading, Not Adapting: Unlocking Frozen Visual Knowledge for AI-Generated Image Detection",
+      "sent_at": "2026-11-27T12:16:47.200034+07:00"
+    },
+    {
+      "url": "https://www.kdnuggets.com/how-to-future-proof-your-data-career-as-coding-agents-take-over-routine-work",
+      "title": "How to Future-Proof Your Data Career as Coding Agents Take Over Routine Work",
+      "sent_at": "2026-11-27T12:16:47.200034+07:00"
+    },
+    {
+      "url": "https://www.kdnuggets.com/top-5-open-source-alternatives-to-openai-dots",
+      "title": "Top 5 Open-Source Alternatives to OpenAI Dots",
+      "sent_at": "2026-11-27T12:16:47.200034+07:00"
     }
   ]
 }
